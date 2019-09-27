@@ -1,7 +1,8 @@
-{
-  "endOfLine": "lf",
-  "semi": false,
-  "singleQuote": false,
-  "tabWidth": 2,
-  "trailingComma": "es5"
-}
+parser: typescript
+endOfLine: lf
+semi: false
+singleQuote: true
+tabWidth: 2
+proseWrap: never
+arrow-parens: avoid
+tralingComma: es5
