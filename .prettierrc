@@ -4,5 +4,6 @@ semi: false
 singleQuote: true
 tabWidth: 2
 proseWrap: never
-arrow-parens: avoid
+arrowParens: avoid
 tralingComma: es5
+bracketSpacing: true

@@ -1,6 +1,5 @@
 import React from 'react'
 import { useStaticQuery, graphql } from 'gatsby'
-import { node } from 'prop-types'
 
 const CountrySelector = () => {
   const {
@@ -18,7 +17,7 @@ const CountrySelector = () => {
           }
         }
       }
-      allFile(limit: 2, filter: { publicURL: { regex: "/(it-|us-)/" } }) {
+      allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }) {
         edges {
           node {
             publicURL
@@ -44,6 +43,10 @@ const CountrySelector = () => {
           </p>
           <div className="columns is-mobile">
             {edges.map((c, i: number) => {
+              console.log(
+                'c.node.code.toLowerCase() :',
+                c.node.code.toLowerCase()
+              )
               const flag = flags.filter(
                 f => f.node.name === c.node.code.toLowerCase()
               )

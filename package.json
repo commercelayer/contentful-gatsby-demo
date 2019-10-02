@@ -1,60 +1,61 @@
 {
-  "name": "gatsby-starter-default",
-  "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
-  "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
-  "dependencies": {
-    "@apollo/react-components": "^3.1.1",
-    "@apollo/react-hooks": "^3.1.1",
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
-    "bulma": "^0.7.5",
-    "dotenv": "^8.1.0",
-    "gatsby": "^2.15.26",
-    "gatsby-image": "^2.2.21",
-    "gatsby-plugin-apollo": "^0.1.1",
-    "gatsby-plugin-commercelayer": "^1.2.6",
-    "gatsby-plugin-manifest": "^2.2.18",
-    "gatsby-plugin-offline": "^3.0.9",
-    "gatsby-plugin-react-helmet": "^3.1.8",
-    "gatsby-plugin-sass": "^2.1.15",
-    "gatsby-plugin-sharp": "^2.2.25",
-    "gatsby-plugin-typescript": "^2.1.9",
-    "gatsby-source-contentful": "^2.1.42",
-    "gatsby-source-filesystem": "^2.1.26",
-    "gatsby-transformer-sharp": "^2.2.17",
-    "graphql": "^14.5.8",
-    "node-sass": "^4.12.0",
-    "prop-types": "^15.7.2",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-helmet": "^5.2.1"
-  },
-  "devDependencies": {
-    "@types/node": "^12.7.8",
-    "@types/react": "^16.9.3",
-    "@types/react-dom": "^16.9.1",
-    "prettier": "^1.18.2"
-  },
-  "keywords": [
-    "gatsby"
-  ],
-  "license": "MIT",
-  "scripts": {
-    "build": "gatsby build",
-    "develop": "gatsby develop",
-    "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
-    "start": "npm run develop",
-    "serve": "gatsby serve",
-    "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
-  },
-  "bugs": {
-    "url": "https://github.com/gatsbyjs/gatsby/issues"
-  }
+	"name": "contentful-gatsby-demo",
+	"private": true,
+	"description": "A simple starter to get up and developing quickly a commerce with Contentful, Gatsby and Commerce Layer",
+	"version": "0.1.0",
+	"author": "Alessandro Casazza <alessandro@commercelayer.io>",
+	"dependencies": {
+		"@apollo/react-components": "^3.1.2",
+		"@apollo/react-hooks": "^3.1.2",
+		"@fortawesome/fontawesome-svg-core": "^1.2.25",
+		"@fortawesome/free-solid-svg-icons": "^5.11.2",
+		"@fortawesome/react-fontawesome": "^0.1.5",
+		"bulma": "^0.7.5",
+		"dotenv": "^8.1.0",
+		"gatsby": "^2.15.28",
+		"gatsby-image": "^2.2.23",
+		"gatsby-plugin-apollo": "^0.1.1",
+		"gatsby-plugin-commercelayer": "^1.2.7",
+		"gatsby-plugin-create-client-paths": "^2.1.11",
+		"gatsby-plugin-i18next": "^1.1.9",
+		"gatsby-plugin-manifest": "^2.2.20",
+		"gatsby-plugin-offline": "^3.0.11",
+		"gatsby-plugin-react-helmet": "^3.1.10",
+		"gatsby-plugin-sass": "^2.1.17",
+		"gatsby-plugin-sharp": "^2.2.27",
+		"gatsby-plugin-typescript": "^2.1.11",
+		"gatsby-source-contentful": "^2.1.44",
+		"gatsby-source-filesystem": "^2.1.28",
+		"gatsby-transformer-sharp": "^2.2.19",
+		"graphql": "^14.5.8",
+		"node-sass": "^4.12.0",
+		"prop-types": "^15.7.2",
+		"react": "^16.10.1",
+		"react-dom": "^16.10.1",
+		"react-helmet": "^5.2.1",
+		"react-i18next": "^10.13.1"
+	},
+	"devDependencies": {
+		"@types/node": "^12.7.9",
+		"@types/react": "^16.9.4",
+		"@types/react-dom": "^16.9.1",
+		"prettier": "^1.18.2"
+	},
+	"keywords": [ "gatsby", "contentful", "commerce layer" ],
+	"license": "MIT",
+	"scripts": {
+		"build": "gatsby build",
+		"develop": "gatsby develop",
+		"format": "prettier --write \"**/*.{js,jsx,json,md}\"",
+		"start": "npm run develop",
+		"serve": "gatsby serve",
+		"test": "echo \"Write tests! -> https://gatsby.dev/unit-testing \""
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/gatsbyjs/gatsby-starter-default"
+	},
+	"bugs": {
+		"url": "https://github.com/gatsbyjs/gatsby/issues"
+	}
 }
