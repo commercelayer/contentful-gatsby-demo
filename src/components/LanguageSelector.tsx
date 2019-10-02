@@ -29,7 +29,7 @@ const LanguageSelector = ({ shipping, lang }) => {
 	`
 	const { loading, error, data } = useQuery(query, {
 		variables: {
-			lang: lang.replace('en-us', 'en-US'),
+			lang: lang ? lang.replace('en-us', 'en-US') : 'en-US',
 			flagName: shipping
 		}
 	})

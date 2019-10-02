@@ -49,7 +49,13 @@ module.exports = {
 			}
 		},
 		`gatsby-plugin-commercelayer`,
-		`gatsby-plugin-typescript`,
+		{
+			resolve: `gatsby-plugin-typescript`,
+			options: {
+				isTSX: true,
+				allExtensions: true
+			}
+		},
 		`gatsby-plugin-sass`,
 		{
 			resolve: 'gatsby-plugin-apollo',

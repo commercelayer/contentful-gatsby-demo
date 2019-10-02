@@ -65,4 +65,8 @@ const CountrySelectorNav = ({ shipping, lang }) => {
 	)
 }
 
+CountrySelectorNav.defaultProps = {
+	lang: 'en-us'
+}
+
 export default CountrySelectorNav

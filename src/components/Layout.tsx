@@ -7,16 +7,18 @@ import Footer from './Footer'
 import 'bulma'
 import '../stylesheets/main.css'
 import ShoppingBag from './ShoppingBag'
-document
-	.getElementsByTagName('html')[0]
-	.setAttribute('class', 'has-navbar-fixed-top')
 
 const Layout = ({ children, location, ...props }) => {
 	const [ shoppingBagOpen, setShoppingBagOpen ] = React.useState(false)
 	const pathname = location.pathname.split('/').filter(s => s !== '')
 	const shipping = pathname[0]
 	const lang = pathname[1]
-	const marketId = location.state.marketId ? location.state.marketId : 76
+	const marketId = '76'
+	// if (document) {
+	// 	document
+	// 		.getElementsByTagName('html')[0]
+	// 		.setAttribute('class', 'has-navbar-fixed-top')
+	// }
 	console.log('pathname LAYOUT :', location, props)
 	const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
 	return (
@@ -35,7 +37,7 @@ const Layout = ({ children, location, ...props }) => {
 				baseUrl='https://contentful-commerce.commercelayer.io'
 				clientId='183336e806fd8d1389504b6fda842195bf50fee8fa62ccb52e1b19785f825314'
 				marketId={marketId}
-				countryCode={shipping.toUpperCase()}
+				countryCode={shipping ? shipping.toUpperCase() : 'US'}
 				languageCode='en'
 				cartUrl='https://contentful-commerce.netlify.com/'
 				returnUrl='https://contentful-commerce.netlify.com/'
@@ -52,7 +54,10 @@ Layout.propTypes = {
 
 Layout.defaultProps = {
 	location: {
-		pathname: ''
+		pathname: '',
+		state: {
+			marketId: '76'
+		}
 	}
 }
 
