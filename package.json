@@ -16,6 +16,7 @@
 		"gatsby-image": "^2.2.23",
 		"gatsby-plugin-apollo": "^0.1.1",
 		"gatsby-plugin-commercelayer": "^1.2.7",
+		"gatsby-plugin-config": "^1.0.7",
 		"gatsby-plugin-create-client-paths": "^2.1.11",
 		"gatsby-plugin-i18next": "^1.1.9",
 		"gatsby-plugin-manifest": "^2.2.20",
@@ -41,7 +42,11 @@
 		"@types/react-dom": "^16.9.1",
 		"prettier": "^1.18.2"
 	},
-	"keywords": [ "gatsby", "contentful", "commerce layer" ],
+	"keywords": [
+		"gatsby",
+		"contentful",
+		"commerce layer"
+	],
 	"license": "MIT",
 	"scripts": {
 		"build": "gatsby build",

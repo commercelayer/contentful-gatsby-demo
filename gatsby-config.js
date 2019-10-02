@@ -2,6 +2,8 @@ require('dotenv').config({
 	path: `.env.${process.env.NODE_ENV}` // or '.env'
 })
 
+const config = require('gatsby-plugin-config').default
+
 module.exports = {
 	siteMetadata: {
 		title: `Contentful Gatsby Demo`,
@@ -41,9 +43,9 @@ module.exports = {
 		{
 			resolve: `gatsby-source-contentful`,
 			options: {
-				spaceId: process.env.CONTENTFUL_SPACE_ID,
+				spaceId: config.CONTENTFUL_SPACE_ID,
 				// Learn about environment variables: https://gatsby.dev/env-vars
-				accessToken: process.env.CONTENTFUL_ACCESS_TOKEN
+				accessToken: config.CONTENTFUL_ACCESS_TOKEN
 			}
 		},
 		`gatsby-plugin-commercelayer`,

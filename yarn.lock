@@ -5669,6 +5669,11 @@ gatsby-plugin-commercelayer@^1.2.7:
     commercelayer-react "^1.2.2"
     gatsby-cli "^2.6.4"
 
+gatsby-plugin-config@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/gatsby-plugin-config/-/gatsby-plugin-config-1.0.7.tgz#65f55decd0925c0231c828be25a314c68d0a01e9"
+  integrity sha512-js7zLJcTD+G5ea4rPYHztb+N+KqGo6ax5rGviuTUDdKu0N1oGWp8FuozQrdx7TPKjMv/g5pvMAGrhk5TcPd5tQ==
+
 gatsby-plugin-create-client-paths@^2.1.11:
   version "2.1.11"
   resolved "https://registry.yarnpkg.com/gatsby-plugin-create-client-paths/-/gatsby-plugin-create-client-paths-2.1.11.tgz#12439de8892f792a7f4c8430825b3ae06f4b2d9e"
