@@ -7,7 +7,7 @@ const CategoriesPage = props => {
 	React.useEffect(
 		() => {
 			if (window.commercelayer) {
-				window.location.reload()
+				window.location.init()
 			}
 		},
 		[ window.commercelayer ]
