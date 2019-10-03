@@ -37,7 +37,8 @@ const LanguageSelector = ({ shipping, lang }) => {
 	return (
 		<div className='navbar-item has-dropdown is-hoverable'>
 			<a className='navbar-link'>
-				shipping to: &nbsp; <img src={selectedflag.publicURL} width='20' />
+				{locale[lang.replace('-us', '-US')].language}: &nbsp;{' '}
+				<img src={selectedflag.publicURL} width='20' />
 			</a>
 			<div className='navbar-dropdown'>
 				{countries.map(({ node: c }, i) => {
@@ -50,6 +51,7 @@ const LanguageSelector = ({ shipping, lang }) => {
 						locale[c.node_locale].languages[c.node_locale],
 						c.node_locale
 					)
+					debugger
 					return (
 						<Link
 							key={i}
@@ -57,7 +59,8 @@ const LanguageSelector = ({ shipping, lang }) => {
 							to={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
 							state={{ marketId: c.market_id }}
 						>
-							<img src={flag[0].node.publicURL} width='20' />&nbsp;{locale[c.node_locale].languages[c.defaultLocale]}
+							{flag.map(f => <img src={f.node.publicURL} width='20' />)}
+							&nbsp;{locale[c.node_locale].languages[c.defaultLocale]}
 						</Link>
 					)
 				})}

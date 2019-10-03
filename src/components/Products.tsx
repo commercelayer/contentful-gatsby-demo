@@ -1,8 +1,8 @@
 import React from 'react'
-import gql from 'graphql-tag'
 import { ProductsProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
+import locale from '../locale/locale.json'
 
 const Products = (props: ProductsProps) => {
 	const { categoryName, categoryId, shop, lang } = props
