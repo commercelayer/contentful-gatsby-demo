@@ -1,59 +1,51 @@
 import React from 'react'
 import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
-import { capitalizeFirstLetter } from '../helpers/index'
 import { ProductsProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 
 const Products = (props: ProductsProps) => {
-	const { categoryName, shop, lang } = props
-	const [ loadData, setLoadData ] = React.useState(false)
-	React.useEffect(
-		() => {
-			if (window.commercelayer) {
-				window.commercelayer.init()
-			}
-		},
-		[ loadData ]
-	)
-	const query = gql`
-		query MyQuery($category: String) {
-			allContentfulProduct(
-				filter: { category: { elemMatch: { name: { eq: $category } } } }
-			) {
-				nodes {
-					name
-					reference
-					category {
+	const { categoryName, categoryId, shop, lang } = props
+	const { allContentfulCategory: { edges } } = useStaticQuery(graphql`
+		{
+			allContentfulCategory {
+				edges {
+					node {
 						name
 						node_locale
-					}
-					image {
-						file {
-							url
+						contentful_id
+						products {
+							node_locale
+							name
+							image {
+								file {
+									url
+								}
+							}
+							reference
+							variants {
+								code
+							}
 						}
-					}
-					variants {
-						code
 					}
 				}
 			}
 		}
-	`
-	const { loading, error, data } = useQuery(query, {
-		variables: {
-			category: capitalizeFirstLetter(categoryName)
-		}
-	})
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Ops! There is an error...</div>
-	if (data && !loadData) {
-		setLoadData(true)
-	}
+	`)
+	const category = edges.filter(({ node }) => {
+		return (
+			(node.contentful_id === categoryId &&
+				node.node_locale.toLowerCase() === lang) ||
+			(node.node_locale.toLowerCase() === lang &&
+				node.name.toLowerCase() === categoryName)
+		)
+	})[0].node
+	// const [ loadData, setLoadData ] = React.useState(false) React.useEffect( 	()
+	// => { 		if (window.commercelayer) { 			window.commercelayer.init() 		} 	}, 	[
+	// loadData ] ) if (data && !loadData) { 	setLoadData(true) }
 	return (
 		<div className='columns is-multiline is-mobile'>
-			{data.allContentfulProduct.nodes.map((p, i) => {
+			{category.products.map((p, i) => {
 				const srcImg = `https:${p.image.file.url}`
 				const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
 				return (
@@ -61,7 +53,9 @@ const Products = (props: ProductsProps) => {
 						<div className='product-listing box'>
 							<Link
 								to={`/${shop}/${lang}/${categoryName}/${productSlug}`}
-								state={{ reference: p.reference }}
+								state={{
+									reference: p.reference
+								}}
 							>
 								<img src={srcImg} alt={p.name} />
 							</Link>

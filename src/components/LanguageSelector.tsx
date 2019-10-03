@@ -1,19 +1,22 @@
 import React from 'react'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
+import { Link, useStaticQuery, graphql } from 'gatsby'
+import locale from '../locale/locale.json'
 
 const LanguageSelector = ({ shipping, lang }) => {
-	const query = gql`
-		query MyQuery($lang: String, $flagName: String) {
-			allContentfulCountry(filter: { node_locale: { eq: $lang } }) {
-				nodes {
-					code
-					name
-					node_locale
-					defaultLocale
+	const { allContentfulCountry, allFile } = useStaticQuery(graphql`
+		{
+			allContentfulCountry {
+				edges {
+					node {
+						name
+						market_id
+						defaultLocale
+						code
+						node_locale
+					}
 				}
 			}
-			allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }, skip: 1) {
+			allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }, limit: 2) {
 				edges {
 					node {
 						publicURL
@@ -21,44 +24,50 @@ const LanguageSelector = ({ shipping, lang }) => {
 					}
 				}
 			}
-			file(name: { eq: $flagName }) {
-				publicURL
-				name
-			}
 		}
-	`
-	const { loading, error, data } = useQuery(query, {
-		variables: {
-			lang: lang ? lang.replace('en-us', 'en-US') : 'en-US',
-			flagName: shipping
-		}
-	})
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Ops! There is an error...</div>
-	const countryFlag = data.file
-	const countries = data.allContentfulCountry.nodes
-	const flags = data.allFile.edges
+	`)
+	const countries = allContentfulCountry.edges.filter(
+		({ node }) => node.node_locale.toLowerCase() === lang
+	)
+	const selectedflag = allFile.edges.filter(
+		({ node }) => node.name === lang.replace('en-', '')
+	)[0].node
+	const flags = allFile.edges
+
 	return (
 		<div className='navbar-item has-dropdown is-hoverable'>
 			<a className='navbar-link'>
-				Language: &nbsp;
-				<img src={countryFlag.publicURL} width='20' />
+				shipping to: &nbsp; <img src={selectedflag.publicURL} width='20' />
 			</a>
 			<div className='navbar-dropdown'>
-				{countries.map((c, i) => {
-					const flag = flags.filter(f => f.node.name === c.code.toLowerCase())
+				{countries.map(({ node: c }, i) => {
+					console.log('c :', c)
+					const flag = flags.filter(
+						({ node }) => node.name === c.code.toLowerCase()
+					)
+					console.log(
+						'traduzioni :',
+						locale[c.node_locale].languages[c.node_locale],
+						c.node_locale
+					)
 					return (
-						<a
+						<Link
+							key={i}
 							className='navbar-item'
-							href={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
+							to={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
+							state={{ marketId: c.market_id }}
 						>
-							<img src={flag[0].node.publicURL} width='20' />&nbsp;{c.name}
-						</a>
+							<img src={flag[0].node.publicURL} width='20' />&nbsp;{locale[c.node_locale].languages[c.defaultLocale]}
+						</Link>
 					)
 				})}
 			</div>
 		</div>
 	)
+}
+
+LanguageSelector.defaultProps = {
+	lang: 'en-us'
 }
 
 export default LanguageSelector

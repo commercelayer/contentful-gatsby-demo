@@ -1,42 +1,42 @@
 import React from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
 import { BaseComponent } from '../types/index'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
 
 const Categories = ({ shop, lang }: BaseComponent) => {
-	const query = gql`
-		query MyQuery($nodeLocale: String) {
-			allContentfulCategory(filter: { node_locale: { eq: $nodeLocale } }) {
-				edges {
-					node {
-						name
-						node_locale
-						image {
-							file {
-								url
+	const data = useStaticQuery(graphql`
+		query CatalogueCategories {
+			allContentfulCountry {
+				nodes {
+					catalogue {
+						categories {
+							name
+							node_locale
+							image {
+								file {
+									url
+								}
 							}
+							contentful_id
 						}
+						node_locale
+						name
 					}
 				}
 			}
 		}
-	`
-	const { loading, error, data } = useQuery(query, {
-		variables: {
-			nodeLocale: lang.replace('en-us', 'en-US')
-		}
-	})
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Ops! There is an error...</div>
-	const categories = data.allContentfulCategory.edges
-	console.log('categories :', categories)
+	`)
+	const catalogues = data.allContentfulCountry.nodes
+	const category = catalogues.filter(
+		({ catalogue }) =>
+			catalogue.name.toLowerCase() === shop &&
+			lang === catalogue.node_locale.toLowerCase()
+	)[0].catalogue.categories
 	return (
 		<div className='columns is-multiline'>
-			{categories.map(({ node: n }, i) => {
-				const name = n.name
-				const src = `https:${n.image.file.url}`
-				const slug = n.name
+			{category.map((c, i) => {
+				const name = c.name
+				const src = `https:${c.image.file.url}`
+				const slug = c.name
 					.trim()
 					.toLowerCase()
 					.replace(' & ', '-')
@@ -45,7 +45,10 @@ const Categories = ({ shop, lang }: BaseComponent) => {
 					<div key={i} className='column is-half-tablet is-one-fifth-desktop'>
 						<h2 className='has-text-weight-bold'>{name}</h2>
 						<div className='category-listing box'>
-							<Link to={`/${shop}/${lang}/${slug}`}>
+							<Link
+								to={`/${shop}/${lang}/${slug}`}
+								state={{ categoryId: c.contentful_id }}
+							>
 								<img src={src} alt={name} />
 							</Link>
 						</div>

@@ -11,7 +11,8 @@ export interface BreadcrumbProps extends BaseComponent {
 }
 
 export interface ProductsProps extends BaseComponent {
-  categoryName: string
+  categoryId: string
+  categoryName?: string
 }
 
 export interface ProductProps extends BaseComponent {

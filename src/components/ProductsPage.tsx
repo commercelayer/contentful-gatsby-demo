@@ -3,10 +3,16 @@ import Breadcrumb from './Breadcrumb'
 import Products from './Products'
 
 const ProductsPage = props => {
-	const { uri, locale, categoryName } = props
+	const {
+		uri,
+		locale,
+		categoryName,
+		location: { state: { categoryId } }
+	} = props
 	const pathname = uri.split('/').filter(s => s !== '')
 	const shop = pathname[0]
 	const lang = locale
+	console.log('props :', props)
 	return (
 		<React.Fragment>
 			<Breadcrumb
@@ -15,7 +21,12 @@ const ProductsPage = props => {
 				uri={uri}
 				categoryName={categoryName}
 			/>
-			<Products shop={shop} lang={lang} categoryName={categoryName} />
+			<Products
+				shop={shop}
+				lang={lang}
+				categoryId={categoryId}
+				categoryName={categoryName}
+			/>
 		</React.Fragment>
 	)
 }

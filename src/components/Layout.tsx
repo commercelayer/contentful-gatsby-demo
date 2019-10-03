@@ -10,15 +10,17 @@ import ShoppingBag from './ShoppingBag'
 
 const Layout = ({ children, location, ...props }) => {
 	const [ shoppingBagOpen, setShoppingBagOpen ] = React.useState(false)
+	React.useEffect(() => {
+		if (document) {
+			document
+				.getElementsByTagName('html')[0]
+				.setAttribute('class', 'has-navbar-fixed-top')
+		}
+	}, [])
 	const pathname = location.pathname.split('/').filter(s => s !== '')
 	const shipping = pathname[0]
 	const lang = pathname[1]
 	const marketId = '76'
-	// if (document) {
-	// 	document
-	// 		.getElementsByTagName('html')[0]
-	// 		.setAttribute('class', 'has-navbar-fixed-top')
-	// }
 	console.log('pathname LAYOUT :', location, props)
 	const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
 	return (

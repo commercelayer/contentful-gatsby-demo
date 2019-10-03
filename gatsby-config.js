@@ -17,13 +17,6 @@ module.exports = {
 				path: `${__dirname}/src/images`
 			}
 		},
-		{
-			resolve: `gatsby-source-filesystem`,
-			options: {
-				name: `locale`,
-				path: `${__dirname}/src/locale`
-			}
-		},
 		`gatsby-transformer-sharp`,
 		`gatsby-plugin-sharp`,
 		{
@@ -55,12 +48,15 @@ module.exports = {
 			}
 		},
 		`gatsby-plugin-sass`,
-		{
-			resolve: 'gatsby-plugin-apollo',
-			options: {
-				uri: '/___graphql'
-			}
-		},
+		// {
+		// 	resolve: 'gatsby-plugin-apollo',
+		// 	options: {
+		// 		uri: 'https://cdn.contentful.com/content/v1/spaces/blh476ckz2yh',
+		// 		headers: {
+		// 			Authorization: `Bearer 0c74a3cd56e5d2c8eaf65da01c9c27e32babad0ff985abb3005812ccb713666c`
+		// 		}
+		// 	}
+		// },
 		{
 			resolve: `gatsby-plugin-create-client-paths`,
 			options: { prefixes: [ `/us/*`, `/it/*` ] }

@@ -1,0 +1,42 @@
+{
+	"en-US": {
+		"add_to_bag": "add to shopping bag",
+		"available": "available",
+		"categories": "categories",
+		"continue_shopping": "continue shopping",
+		"days": "days",
+		"free_over": "free over",
+		"language": "language",
+		"languages": {
+			"en-US": "english",
+			"it": "italian"
+		},
+		"method": "method",
+		"out_of_stock": "the requested quantity is not available",
+		"price": "price",
+		"proceed_to_checkout": "proceed to checkout",
+		"select_size": "select your size",
+		"shipping_to": "shipping to",
+		"your_shopping_bag": "your shopping bag"
+	},
+	"it": {
+		"add_to_bag": "aggiungi alla shopping bag",
+		"available": "disponibile",
+		"categories": "categorie",
+		"continue_shopping": "continua lo shopping",
+		"days": "giorni",
+		"free_over": "gratis oltre",
+		"language": "lingua",
+		"languages": {
+			"en-US": "inglese",
+			"it": "italiano"
+		},
+		"method": "metodo",
+		"out_of_stock": "la quantità richiesta non è disponibile",
+		"price": "prezzo",
+		"proceed_to_checkout": "vai al checkout",
+		"select_size": "seleziona la tua taglia",
+		"shipping_to": "spedizione",
+		"your_shopping_bag": "la tua shopping bag"
+	}
+}

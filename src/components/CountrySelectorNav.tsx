@@ -1,21 +1,21 @@
 import React from 'react'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
-import { Link } from 'gatsby'
+import { Link, useStaticQuery, graphql } from 'gatsby'
 
 const CountrySelectorNav = ({ shipping, lang }) => {
-	const query = gql`
-		query MyQuery($lang: String, $flagName: String) {
-			allContentfulCountry(filter: { node_locale: { eq: $lang } }) {
-				nodes {
-					code
-					name
-					node_locale
-					defaultLocale
-					market_id
+	const { allContentfulCountry, allFile } = useStaticQuery(graphql`
+		{
+			allContentfulCountry {
+				edges {
+					node {
+						name
+						market_id
+						defaultLocale
+						code
+						node_locale
+					}
 				}
 			}
-			allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }, skip: 1) {
+			allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }, limit: 2) {
 				edges {
 					node {
 						publicURL
@@ -23,32 +23,26 @@ const CountrySelectorNav = ({ shipping, lang }) => {
 					}
 				}
 			}
-			file(name: { eq: $flagName }) {
-				publicURL
-				name
-			}
 		}
-	`
-	const { loading, error, data } = useQuery(query, {
-		variables: {
-			lang: lang.replace('en-us', 'en-US'),
-			flagName: shipping
-		}
-	})
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Ops! There is an error...</div>
-	const countryFlag = data.file
-	const countries = data.allContentfulCountry.nodes
-	const flags = data.allFile.edges
+	`)
+	const countries = allContentfulCountry.edges.filter(
+		({ node }) => node.node_locale.toLowerCase() === lang
+	)
+	const selectedflag = allFile.edges.filter(
+		({ node }) => node.name === shipping
+	)[0].node
+	const flags = allFile.edges
+
 	return (
 		<div className='navbar-item has-dropdown is-hoverable'>
 			<a className='navbar-link'>
-				shipping to: &nbsp; <img src={countryFlag.publicURL} width='20' />
+				shipping to: &nbsp; <img src={selectedflag.publicURL} width='20' />
 			</a>
 			<div className='navbar-dropdown'>
-				{countries.map((c, i) => {
-					console.log('c :', c)
-					const flag = flags.filter(f => f.node.name === c.code.toLowerCase())
+				{countries.map(({ node: c }, i) => {
+					const flag = flags.filter(
+						({ node }) => node.name === c.code.toLowerCase()
+					)
 					return (
 						<Link
 							key={i}

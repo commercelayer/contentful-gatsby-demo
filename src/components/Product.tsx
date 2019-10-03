@@ -1,48 +1,52 @@
 import React from 'react'
 import { ProductProps } from '../types/index'
-import gql from 'graphql-tag'
-import { useQuery } from '@apollo/react-hooks'
 import * as CLayer from 'commercelayer-react'
+import { useStaticQuery, graphql } from 'gatsby'
 
 const Product = (props: ProductProps) => {
-	const { reference } = props
-	const [ loadData, setLoadData ] = React.useState(false)
-	React.useEffect(
-		() => {
-			if (window.commercelayer) {
-				window.commercelayer.init()
-			}
-		},
-		[ loadData ]
-	)
-	const query = gql`
-		query MyQuery($reference: String) {
-			contentfulProduct(reference: { eq: $reference }) {
-				reference
-				name
-				variants {
-					name
-					code
-					size {
+	const { reference, lang } = props
+	const { allContentfulProduct: { edges } } = useStaticQuery(graphql`
+		query Product {
+			allContentfulProduct {
+				edges {
+					node {
+						node_locale
 						name
-					}
-				}
-				image {
-					file {
-						url
+						reference
+						variants {
+							size {
+								name
+							}
+							name
+							code
+						}
+						image {
+							file {
+								url
+							}
+						}
 					}
 				}
 			}
 		}
-	`
-	const { loading, error, data } = useQuery(query, {
-		variables: {
-			reference
-		}
-	})
-	if (loading) return <div>Loading...</div>
-	if (error) return <div>Ops! There is an error...</div>
-	const p = data.contentfulProduct
+	`)
+	const p = edges.filter(
+		({ node }) =>
+			node.reference === reference && node.node_locale.toLowerCase() === lang
+		// 	 ||
+		// (node.node_locale.toLowerCase() === lang &&
+		// 	node.name.toLowerCase().replace(/\s/gm, '-'))
+	)[0].node
+	// const [ loadData, setLoadData ] = React.useState(false)
+	// React.useEffect(
+	// 	() => {
+	// 		if (window.commercelayer) {
+	// 			window.commercelayer.init()
+	// 		}
+	// 	},
+	// 	[ loadData ]
+	// )
+	// const p = data.contentfulProduct
 	const variants = p.variants.map(v => {
 		return {
 			code: v.code,
@@ -50,9 +54,9 @@ const Product = (props: ProductProps) => {
 			label: v.size.name
 		}
 	})
-	if (data && !loadData) {
-		setLoadData(true)
-	}
+	// if (data && !loadData) {
+	// 	setLoadData(true)
+	// }
 	return (
 		<div className='columns'>
 			<div className='column is-two-thirds'>
