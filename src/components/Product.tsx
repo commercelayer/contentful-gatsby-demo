@@ -2,6 +2,7 @@ import React from 'react'
 import { ProductProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
 import { useStaticQuery, graphql } from 'gatsby'
+import locale from '../locale/locale.json'
 
 const Product = (props: ProductProps) => {
 	const { reference, lang } = props
@@ -73,6 +74,7 @@ const Product = (props: ProductProps) => {
 						PriceContainerId='price'
 						AvailabilityMessageContainerId='availability-message'
 						AddToBagId='add-to-bag'
+						promptText={locale[lang.replace('us', 'US')].select_size}
 						skus={variants}
 					/>
 				</div>
@@ -80,6 +82,7 @@ const Product = (props: ProductProps) => {
 					className='add-to-bag button is-success is-fullwidth'
 					id='add-to-bag'
 					AvailabilityMessageContainerId='availability-message'
+					text={locale[lang.replace('us', 'US')].add_to_bag}
 				/>
 
 				<CLayer.AvailabilityMessageContainer id='availability-message' />
@@ -87,10 +90,13 @@ const Product = (props: ProductProps) => {
 				<CLayer.AvailabilityMessageAvailableTemplate
 					className='available-message has-text-success'
 					availableTemplate={
-						<p>
-							Available in{' '}
+						<p className='has-text-success'>
+							<span className='is-capitalized'>
+								{locale[lang.replace('us', 'US')].available}
+							</span>{' '}
+							in{' '}
 							<CLayer.AvailabilityMessageMinDays className='available-message-min-days' />-<CLayer.AvailabilityMessageMaxDays className='available-message-max-days' />{' '}
-							days with <CLayer.AvailabilityMessageShippingMethodName /> (<CLayer.AvailabilityMessageShippingMethodPrice />)
+							{locale[lang.replace('us', 'US')].days}
 						</p>
 					}
 				/>

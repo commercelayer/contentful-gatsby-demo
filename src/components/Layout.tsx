@@ -20,8 +20,7 @@ const Layout = ({ children, location, ...props }) => {
 	const pathname = location.pathname.split('/').filter(s => s !== '')
 	const shipping = pathname[0]
 	const lang = pathname[1]
-	const marketId = '76'
-	console.log('pathname LAYOUT :', location, props)
+	const marketId = shipping === 'us' ? 76 : 75
 	const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
 	return (
 		<React.Fragment>

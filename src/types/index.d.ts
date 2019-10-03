@@ -6,6 +6,7 @@ export interface BaseComponent {
 
 export interface BreadcrumbProps extends BaseComponent {
   productSlug?: string
+  categoryId?: string
   categoryName?: string
   uri: string
 }

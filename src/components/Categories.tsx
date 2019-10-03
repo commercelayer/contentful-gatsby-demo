@@ -3,6 +3,15 @@ import { useStaticQuery, graphql, Link } from 'gatsby'
 import { BaseComponent } from '../types/index'
 
 const Categories = ({ shop, lang }: BaseComponent) => {
+	React.useEffect(
+		() => {
+			if (window.commercelayer) {
+				window.commercelayer.init()
+				console.log('=== INIT COMMERCELAYER ====')
+			}
+		},
+		[ window.commercelayer ]
+	)
 	const data = useStaticQuery(graphql`
 		query CatalogueCategories {
 			allContentfulCountry {

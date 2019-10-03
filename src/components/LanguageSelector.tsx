@@ -36,7 +36,7 @@ const LanguageSelector = ({ shipping, lang }) => {
 
 	return (
 		<div className='navbar-item has-dropdown is-hoverable'>
-			<a className='navbar-link'>
+			<a className='navbar-link is-capitalized'>
 				{locale[lang.replace('-us', '-US')].language}: &nbsp;{' '}
 				<img src={selectedflag.publicURL} width='20' />
 			</a>
@@ -51,11 +51,10 @@ const LanguageSelector = ({ shipping, lang }) => {
 						locale[c.node_locale].languages[c.node_locale],
 						c.node_locale
 					)
-					debugger
 					return (
 						<Link
 							key={i}
-							className='navbar-item'
+							className='navbar-item is-capitalized'
 							to={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
 							state={{ marketId: c.market_id }}
 						>

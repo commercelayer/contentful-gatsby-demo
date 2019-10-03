@@ -1,9 +1,9 @@
 {
 	"en-US": {
-		"add_to_bag": "add to shopping bag",
+		"add_to_bag": "Add to shopping bag",
 		"available": "available",
 		"categories": "categories",
-		"continue_shopping": "continue shopping",
+		"continue_shopping": "Continue shopping",
 		"days": "days",
 		"free_over": "free over",
 		"language": "language",
@@ -12,18 +12,18 @@
 			"it": "italian"
 		},
 		"method": "method",
-		"out_of_stock": "the requested quantity is not available",
+		"out_of_stock": "The requested quantity is not available",
 		"price": "price",
-		"proceed_to_checkout": "proceed to checkout",
-		"select_size": "select your size",
-		"shipping_to": "shipping to",
-		"your_shopping_bag": "your shopping bag"
+		"proceed_to_checkout": "Proceed to checkout",
+		"select_size": "Select your size",
+		"shipping_to": "Shipping to",
+		"your_shopping_bag": "Your shopping bag"
 	},
 	"it": {
-		"add_to_bag": "aggiungi alla shopping bag",
+		"add_to_bag": "Aggiungi alla shopping bag",
 		"available": "disponibile",
 		"categories": "categorie",
-		"continue_shopping": "continua lo shopping",
+		"continue_shopping": "Continua lo shopping",
 		"days": "giorni",
 		"free_over": "gratis oltre",
 		"language": "lingua",
@@ -32,11 +32,11 @@
 			"it": "italiano"
 		},
 		"method": "metodo",
-		"out_of_stock": "la quantità richiesta non è disponibile",
+		"out_of_stock": "La quantità richiesta non è disponibile",
 		"price": "prezzo",
-		"proceed_to_checkout": "vai al checkout",
-		"select_size": "seleziona la tua taglia",
-		"shipping_to": "spedizione",
-		"your_shopping_bag": "la tua shopping bag"
+		"proceed_to_checkout": "Vai al checkout",
+		"select_size": "Seleziona la tua taglia",
+		"shipping_to": "Spedizione",
+		"your_shopping_bag": "La tua shopping bag"
 	}
 }

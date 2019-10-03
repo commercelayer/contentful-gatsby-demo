@@ -54,7 +54,8 @@ const Products = (props: ProductsProps) => {
 							<Link
 								to={`/${shop}/${lang}/${categoryName}/${productSlug}`}
 								state={{
-									reference: p.reference
+									reference: p.reference,
+									categoryId: category.contentful_id
 								}}
 							>
 								<img src={srcImg} alt={p.name} />

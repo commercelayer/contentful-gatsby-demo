@@ -9,19 +9,11 @@ const ProductPage = props => {
 		locale,
 		categoryName,
 		productSlug,
-		location: { state: { reference } }
+		location: { state: { reference, categoryId } }
 	} = props
-	React.useEffect(() => {
-		if (window.commercelayer) {
-			console.log('----- INIT CLAYER ----')
-			window.commercelayer.init()
-		}
-	})
 	const pathname = uri.split('/').filter(s => s !== '')
 	const shop = pathname[0]
 	const lang = locale
-	console.log('reference :', reference)
-	// const categoryName = pathname[2]
 	return (
 		<React.Fragment>
 			<Breadcrumb
@@ -29,6 +21,7 @@ const ProductPage = props => {
 				lang={lang}
 				uri={uri}
 				categoryName={categoryName}
+				categoryId={categoryId}
 				productSlug={productSlug}
 			/>
 			<Product

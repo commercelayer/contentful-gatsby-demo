@@ -12,6 +12,15 @@ const ProductsPage = props => {
 	const pathname = uri.split('/').filter(s => s !== '')
 	const shop = pathname[0]
 	const lang = locale
+	React.useEffect(
+		() => {
+			if (window.commercelayer) {
+				window.commercelayer.init()
+				console.log('=== INIT COMMERCELAYER ====')
+			}
+		},
+		[ window.commercelayer ]
+	)
 	console.log('props :', props)
 	return (
 		<React.Fragment>

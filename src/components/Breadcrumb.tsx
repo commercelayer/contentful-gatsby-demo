@@ -3,7 +3,7 @@ import { Link } from 'gatsby'
 import { BreadcrumbProps } from '../types/index'
 
 const Breadcrumb = (props: BreadcrumbProps) => {
-	const { categoryName, shop, lang, uri, productSlug } = props
+	const { categoryName, shop, lang, productSlug, categoryId } = props
 	const label = lang === 'it' ? 'Categorie' : 'Categories'
 	return (
 		<nav className='breadcrumb' aria-label='breadcrumbs'>
@@ -19,6 +19,7 @@ const Breadcrumb = (props: BreadcrumbProps) => {
 						<Link
 							style={{ textTransform: 'capitalize' }}
 							to={`/${shop}/${lang}/${categoryName.toLowerCase()}`}
+							state={{ categoryId }}
 						>
 							{categoryName}
 						</Link>
