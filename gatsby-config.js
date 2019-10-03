@@ -2,8 +2,6 @@ require('dotenv').config({
 	path: `.env.${process.env.NODE_ENV}` // or '.env'
 })
 
-const config = require('gatsby-plugin-config').default
-
 module.exports = {
 	siteMetadata: {
 		title: `Contentful Gatsby Demo`,
@@ -60,7 +58,7 @@ module.exports = {
 		{
 			resolve: 'gatsby-plugin-apollo',
 			options: {
-				uri: '/__graphql'
+				uri: '/___graphql'
 			}
 		},
 		{
