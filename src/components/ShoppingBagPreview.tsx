@@ -9,7 +9,7 @@ const ShoppingBagPreview = ({ onClick }) => {
 				<FontAwesomeIcon icon={faShoppingBag} />
 			</span>
 			<span
-				className='tag is-warning is-rounded'
+				className='clayer-shopping-bag-items-count tag is-warning is-rounded'
 				id='shopping-bag-preview-count'
 			>
 				0

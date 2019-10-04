@@ -58,7 +58,9 @@ const LanguageSelector = ({ shipping, lang }) => {
 							to={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
 							state={{ marketId: c.market_id }}
 						>
-							{flag.map(f => <img src={f.node.publicURL} width='20' />)}
+							{flag.map((f, k) => (
+								<img key={k} src={f.node.publicURL} width='20' />
+							))}
 							&nbsp;{locale[c.node_locale].languages[c.defaultLocale]}
 						</Link>
 					)

@@ -45,19 +45,17 @@ const CountrySelectorNav = ({ shipping, lang }) => {
 					const flag = flags.filter(
 						({ node }) => node.name === c.code.toLowerCase()
 					)
-					console.log('flag :', flag)
 					return (
-						<Link
+						<a
 							key={i}
+							href={`/${c.code.toLowerCase()}/${c.defaultLocale.toLowerCase()}/`}
 							className='navbar-item'
-							to={`/${c.code.toLowerCase()}/${c.defaultLocale.toLowerCase()}/`}
-							state={{
-								marketId: c.market_id
-							}}
 						>
-							{flag.map(f => <img src={f.node.publicURL} width='20' />)}
+							{flag.map((f, k) => (
+								<img key={k} src={f.node.publicURL} width='20' />
+							))}
 							&nbsp;{c.name}
-						</Link>
+						</a>
 					)
 				})}
 			</div>

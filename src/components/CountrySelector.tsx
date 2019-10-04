@@ -28,7 +28,6 @@ const CountrySelector = () => {
 			}
 		}
 	`)
-	console.log('data :', edges, flags)
 	return (
 		<div id='country-selector'>
 			<div className='columns'>
@@ -52,18 +51,17 @@ const CountrySelector = () => {
 								f => f.node.name === c.node.code.toLowerCase()
 							)
 							return (
-								<div className='column'>
+								<div key={i} className='column'>
 									<div className='box'>
-										<Link
-											to={`/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`}
-											state={{ marketId: c.node.market_id }}
+										<a
+											href={`/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`}
 										>
 											<img
 												src={flag[0].node.publicURL}
 												alt={c.node.name}
 												className='image'
 											/>
-										</Link>
+										</a>
 									</div>
 								</div>
 							)

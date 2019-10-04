@@ -4,14 +4,6 @@ import Categories from '../../src/components/Categories'
 
 const CategoriesPage = props => {
 	const { uri, locale } = props
-	React.useEffect(
-		() => {
-			if (window.commercelayer) {
-				window.commercelayer.init()
-			}
-		},
-		[ window.commercelayer ]
-	)
 	const pathname = uri.split('/').filter(s => s !== '')
 	const shop = pathname[0]
 	const lang = locale

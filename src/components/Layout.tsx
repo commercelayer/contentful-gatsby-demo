@@ -20,7 +20,7 @@ const Layout = ({ children, location, ...props }) => {
 	const pathname = location.pathname.split('/').filter(s => s !== '')
 	const shipping = pathname[0]
 	const lang = pathname[1]
-	const marketId = shipping === 'us' ? 76 : 75
+	const marketId = shipping === 'us' ? '76' : '75'
 	const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
 	return (
 		<React.Fragment>
@@ -55,10 +55,7 @@ Layout.propTypes = {
 
 Layout.defaultProps = {
 	location: {
-		pathname: '',
-		state: {
-			marketId: '76'
-		}
+		pathname: ''
 	}
 }
 
