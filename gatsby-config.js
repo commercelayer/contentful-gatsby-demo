@@ -47,7 +47,7 @@ module.exports = {
 				allExtensions: true
 			}
 		},
-		`gatsby-plugin-sass`,
+		`gatsby-plugin-sass`
 		// {
 		// 	resolve: 'gatsby-plugin-apollo',
 		// 	options: {
@@ -57,10 +57,10 @@ module.exports = {
 		// 		}
 		// 	}
 		// },
-		{
-			resolve: `gatsby-plugin-create-client-paths`,
-			options: { prefixes: [ `/us/*`, `/it/*` ] }
-		}
+		// {
+		// 	resolve: `gatsby-plugin-create-client-paths`,
+		// 	options: { prefixes: [ `/us/*`, `/it/*` ] }
+		// }
 		// {
 		// 	resolve: `gatsby-plugin-i18next`,
 		// 	options: {
