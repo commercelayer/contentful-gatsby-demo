@@ -1,93 +1,97 @@
+body {
+	padding-top: 3.25rem;
+}
+
 #contentful-logo {
-  width: 110px;
+	width: 110px;
 }
 #commercelayer-logo {
-  width: 150px;
+	width: 150px;
 }
 .navbar-brand .icon {
-  margin: 0 5px;
+	margin: 0 5px;
 }
 #country-selector {
-  margin-bottom: 40px;
+	margin-bottom: 40px;
 }
 .category-listing {
-  margin-top: 10px;
-  padding: 40px;
+	margin-top: 10px;
+	padding: 40px;
 }
 
 .product-listing h2 {
-  min-height: 60px;
+	min-height: 60px;
 }
 .amount {
-  font-weight: bold;
+	font-weight: bold;
 }
 .compare-at-amount {
-  text-decoration: line-through;
+	text-decoration: line-through;
 }
 .large {
-  font-size: 1.5rem;
+	font-size: 1.5rem;
 }
 .variant-select-wrap {
-  margin-top: 30px;
+	margin-top: 30px;
 }
 .add-to-bag,
 .available-message,
 .unavailable-message {
-  margin-top: 20px;
+	margin-top: 20px;
 }
 .available-message,
 .unavailable-message {
-  display: none;
+	display: none;
 }
 #shopping-bag {
-    height: 100%; /* 100% Full-height */
-    width: 0; /* 0 width - change this with JavaScript */
-    position: fixed; /* Stay in place */
-    z-index: 29; /* Stay on top */
-    top: 0; /* Stay at the top */
-    right: 0;
-    background-color: #fafafa; /* Black*/
-    overflow-x: hidden; /* Disable horizontal scroll */
-    padding-top: 60px; /* Place content 60px from the top */
-    transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
-    border-left: 1px solid #eee;
+	height: 100%; /* 100% Full-height */
+	width: 0; /* 0 width - change this with JavaScript */
+	position: fixed; /* Stay in place */
+	z-index: 29; /* Stay on top */
+	top: 0; /* Stay at the top */
+	right: 0;
+	background-color: #fafafa; /* Black*/
+	overflow-x: hidden; /* Disable horizontal scroll */
+	padding-top: 60px; /* Place content 60px from the top */
+	transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+	border-left: 1px solid #eee;
 }
 #shopping-bag.open {
-  width: 500px;
+	width: 500px;
 }
 .shopping-bag-content {
-  width: 500px;
-  padding: 20px 40px;
-  overflow-x: hidden;
+	width: 500px;
+	padding: 20px 40px;
+	overflow-x: hidden;
 }
 .shopping-bag-col {
-  font-size: 0.8rem;
+	font-size: 0.8rem;
 }
 .shopping-bag-col-image img {
-  width: 80px;
-  border: 1px solid #eee;
+	width: 80px;
+	border: 1px solid #eee;
 }
 .shopping-bag-unavailable-message {
-  display: none;
-  margin-bottom: 10px;
+	display: none;
+	margin-bottom: 10px;
 }
 #shopping-bag-preview-total {
-  text-align: right;
-  font-weight: bold;
+	text-align: right;
+	font-weight: bold;
 }
 #shopping-bag-table {
-  background-color: #fafafa; /* Black*/
+	background-color: #fafafa; /* Black*/
 }
 #shopping-bag-table td {
-  border: none;
-  border-top: 1px solid #eee;
-  padding-top: 10px;
-  padding-bottom: 20px;
+	border: none;
+	border-top: 1px solid #eee;
+	padding-top: 10px;
+	padding-bottom: 20px;
 }
 #main {
-  transition: opacity 0.5s;
-  min-height: 500px;
+	transition: opacity 0.5s;
+	min-height: 500px;
 }
 #main.open {
-  opacity: 0.3;
+	opacity: 0.3;
 }
