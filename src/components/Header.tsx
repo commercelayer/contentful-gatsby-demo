@@ -1,11 +1,6 @@
 import { Link } from 'gatsby'
 import React from 'react'
 import cgcLogo from '../images/CGC-white.svg'
-import clImg from '../images/commercelayer_logo_white.svg'
-import contentfulImg from '../images/contentful.svg'
-import gatsbyImg from '../images/gatsby.svg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import CountrySelectorNav from './CountrySelectorNav'
 import LanguageSelector from './LanguageSelector'
 import ShoppingBagPreview from './ShoppingBagPreview'
@@ -20,17 +15,6 @@ const Header = ({ shipping, lang, shoppingBagPreviewProps }) => (
 						alt='Contentful + Gatsby + Commerce Layer'
 						width='100%'
 					/>
-					{/* <img src={contentfulImg} alt='Contentful' id='contentful-logo' />
-					<span className='icon'>
-						{' '}
-						<FontAwesomeIcon icon={faPlus} />{' '}
-					</span>
-					<img src={gatsbyImg} alt='Gatsby' id='gatsby-logo' />
-					<span className='icon'>
-						{' '}
-						<FontAwesomeIcon icon={faPlus} />{' '}
-					</span>
-					<img src={clImg} alt='Commerce Layer' id='commercelayer-logo' /> */}
 				</Link>
 			</div>
 			<div className='navbar-menu'>
