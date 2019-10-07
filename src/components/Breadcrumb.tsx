@@ -21,7 +21,7 @@ const Breadcrumb = (props: BreadcrumbProps) => {
 						)
 					}
 				>
-					<Link to={`/${shop}/${lang}`}>{label}</Link>
+					<Link to={`/${shop}/${lang.toLowerCase()}`}>{label}</Link>
 				</li>
 				{categorySlug && (
 					<li
@@ -33,7 +33,7 @@ const Breadcrumb = (props: BreadcrumbProps) => {
 							style={{
 								textTransform: 'capitalize'
 							}}
-							to={`/${shop}/${lang}/${categorySlug}`}
+							to={`/${shop}/${lang.toLowerCase()}/${categorySlug}`}
 						>
 							{categoryName}
 						</Link>
