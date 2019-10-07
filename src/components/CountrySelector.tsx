@@ -43,10 +43,6 @@ const CountrySelector = () => {
 					</p>
 					<div className='columns is-mobile'>
 						{edges.map((c, i: number) => {
-							console.log(
-								'c.node.code.toLowerCase() :',
-								c.node.code.toLowerCase()
-							)
 							const flag = flags.filter(
 								f => f.node.name === c.node.code.toLowerCase()
 							)

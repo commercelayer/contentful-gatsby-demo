@@ -6,23 +6,26 @@ export interface BaseComponent {
 
 export interface BreadcrumbProps extends BaseComponent {
   productSlug?: string
-  categoryId?: string
+  categorySlug?: string
   categoryName?: string
   uri: string
 }
 
 export interface ProductsProps extends BaseComponent {
-  categoryId: string
-  categoryName?: string
+  data: any[],
+  categorySlug: string
 }
 
 export interface ProductProps extends BaseComponent {
-  categoryName?: string
-  reference: string
+  data: any
 }
 
 export interface HeaderProps extends BaseComponent {
   shoppingBagPreviewProps: ShoppingBagPreviewProps
+}
+
+export interface CategoriesProps extends BaseComponent {
+  data: any[]
 }
 
 export interface ShoppingBagProps {

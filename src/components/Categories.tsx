@@ -1,39 +1,11 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
-import { BaseComponent } from '../types/index'
+import { Link } from 'gatsby'
+import { CategoriesProps } from '../types/index'
 
-const Categories = ({ shop, lang }: BaseComponent) => {
-	const data = useStaticQuery(graphql`
-		query CatalogueCategories {
-			allContentfulCountry {
-				nodes {
-					catalogue {
-						categories {
-							name
-							node_locale
-							image {
-								file {
-									url
-								}
-							}
-							contentful_id
-						}
-						node_locale
-						name
-					}
-				}
-			}
-		}
-	`)
-	const catalogues = data.allContentfulCountry.nodes
-	const category = catalogues.filter(
-		({ catalogue }) =>
-			catalogue.name.toLowerCase() === shop &&
-			lang === catalogue.node_locale.toLowerCase()
-	)[0].catalogue.categories
+const Categories = ({ shop, lang, data }: CategoriesProps) => {
 	return (
 		<div className='columns is-multiline'>
-			{category.map((c, i) => {
+			{data.map((c, i) => {
 				const name = c.name
 				const src = `https:${c.image.file.url}`
 				const slug = c.name
@@ -47,7 +19,9 @@ const Categories = ({ shop, lang }: BaseComponent) => {
 						<div className='category-listing box'>
 							<Link
 								to={`/${shop}/${lang}/${slug}`}
-								state={{ categoryId: c.contentful_id }}
+								state={{
+									categoryId: c.contentful_id
+								}}
 							>
 								<img src={src} alt={name} />
 							</Link>

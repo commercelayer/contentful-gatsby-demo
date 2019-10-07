@@ -2,6 +2,7 @@
 	"en-US": {
 		"add_to_bag": "Add to shopping bag",
 		"available": "available",
+		"not_available": "Not available",
 		"categories": "categories",
 		"continue_shopping": "Continue shopping",
 		"days": "days",
@@ -22,6 +23,7 @@
 	"it": {
 		"add_to_bag": "Aggiungi alla shopping bag",
 		"available": "disponibile",
+		"not_available": "non disponibile",
 		"categories": "categorie",
 		"continue_shopping": "Continua lo shopping",
 		"days": "giorni",

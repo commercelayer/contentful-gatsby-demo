@@ -38,7 +38,9 @@ const CountrySelectorNav = ({ shipping, lang }) => {
 		<div className='navbar-item has-dropdown is-hoverable'>
 			<a className='navbar-link'>
 				{locale[lang.replace('us', 'US')].shipping_to}: &nbsp; {' '}
-				{selectedflag.map(f => <img src={f.node.publicURL} width='20' />)}
+				{selectedflag.map((f, i) => (
+					<img key={i} src={f.node.publicURL} width='20' />
+				))}
 			</a>
 			<div className='navbar-dropdown'>
 				{countries.map(({ node: c }, i) => {

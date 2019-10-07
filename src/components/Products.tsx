@@ -1,60 +1,22 @@
 import React from 'react'
 import { ProductsProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
-import { Link, useStaticQuery, graphql } from 'gatsby'
+import { Link } from 'gatsby'
 
 const Products = (props: ProductsProps) => {
-	const { categoryName, categoryId, shop, lang } = props
-	const { allContentfulCategory: { edges } } = useStaticQuery(graphql`
-		{
-			allContentfulCategory {
-				edges {
-					node {
-						name
-						node_locale
-						contentful_id
-						products {
-							node_locale
-							name
-							image {
-								file {
-									url
-								}
-							}
-							reference
-							variants {
-								code
-							}
-						}
-					}
-				}
-			}
-		}
-	`)
-	const category = edges.filter(({ node }) => {
-		return (
-			(node.contentful_id === categoryId &&
-				node.node_locale.toLowerCase() === lang) ||
-			(node.node_locale.toLowerCase() === lang &&
-				node.name.toLowerCase() === categoryName)
-		)
-	})[0].node
-	// const [ loadData, setLoadData ] = React.useState(false) React.useEffect( 	()
-	// => { 		if (window.commercelayer) { 			window.commercelayer.init() 		} 	}, 	[
-	// loadData ] ) if (data && !loadData) { 	setLoadData(true) }
+	const { data, shop, lang, categorySlug } = props
 	return (
 		<div className='columns is-multiline is-mobile'>
-			{category.products.map((p, i) => {
+			{data.map((p, i) => {
 				const srcImg = `https:${p.image.file.url}`
 				const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
 				return (
 					<div key={i} className='column is-half-touch is-one-quarter-desktop'>
 						<div className='product-listing box'>
 							<Link
-								to={`/${shop}/${lang}/${categoryName}/${productSlug}`}
+								to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}
 								state={{
-									reference: p.reference,
-									categoryId: category.contentful_id
+									categoryId: p.contentful_id
 								}}
 							>
 								<img src={srcImg} alt={p.name} />

@@ -42,14 +42,8 @@ const LanguageSelector = ({ shipping, lang }) => {
 			</a>
 			<div className='navbar-dropdown'>
 				{countries.map(({ node: c }, i) => {
-					console.log('c :', c)
 					const flag = flags.filter(
 						({ node }) => node.name === c.code.toLowerCase()
-					)
-					console.log(
-						'traduzioni :',
-						locale[c.node_locale].languages[c.node_locale],
-						c.node_locale
 					)
 					return (
 						<Link
