@@ -40,10 +40,10 @@ const Layout = ({
 				marketId={marketId}
 				countryCode={shipping ? shipping.toUpperCase() : 'US'}
 				languageCode='en'
-				cartUrl='https://contentful-commerce.netlify.com/'
-				returnUrl='https://contentful-commerce.netlify.com/'
-				privacyUrl='https://contentful-commerce.netlify.com/'
-				termsUrl='https://contentful-commerce.netlify.com/'
+				cartUrl='https://contentful-gatsby-demo.netlify.com/'
+				returnUrl='https://contentful-gatsby-demo.netlify.com/'
+				privacyUrl='https://contentful-gatsby-demo.netlify.com/'
+				termsUrl='https://contentful-gatsby-demo.netlify.com/'
 			/>
 		</React.Fragment>
 	)
