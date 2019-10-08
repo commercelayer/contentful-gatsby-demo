@@ -36,7 +36,7 @@ const CountrySelector = () => {
 					<p className='subtitle'>
 						This is a static site e-commerce demo built with{' '}
 						<a href='https://www.contentful.com/'>Contentful</a>,{' '}
-						<a href='https://www.gatsbyjs.org/'>Gatsby</a>,{' '}
+						<a href='https://www.gatsbyjs.org/'>Gatsby</a> and {' '}
 						<a href='https://commercelayer.io/'>Commerce Layer</a>. To get
 						started, choose a shipping country below. Each country has a
 						dedicated catalog, price list, and inventory model.

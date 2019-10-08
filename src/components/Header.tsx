@@ -13,7 +13,7 @@ const Header = ({ shipping, lang, shoppingBagPreviewProps }) => (
 					<img
 						src={cgcLogo}
 						alt='Contentful + Gatsby + Commerce Layer'
-						width='100%'
+						width='122'
 					/>
 				</Link>
 			</div>

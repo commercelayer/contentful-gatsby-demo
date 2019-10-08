@@ -8,6 +8,14 @@ import 'bulma'
 import '../stylesheets/main.css'
 import ShoppingBag from './ShoppingBag'
 
+export const useShoppingBagStatus = open => {
+	const [ shoppingBagOpen, setShoppingBagOpen ] = React.useState(false)
+	if (open) {
+		setShoppingBagOpen(open)
+	}
+	return shoppingBagOpen
+}
+
 const Layout = ({ children, location, ...props }) => {
 	const [ shoppingBagOpen, setShoppingBagOpen ] = React.useState(false)
 	const pathname = location.pathname.split('/').filter(s => s !== '')
@@ -15,14 +23,17 @@ const Layout = ({ children, location, ...props }) => {
 	const lang = pathname[1]
 	const marketId = shipping === 'us' ? '76' : '75'
 	const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
+	const sectionOpacity = shoppingBagOpen ? 'open' : ''
 	return (
 		<React.Fragment>
 			<Header
 				shipping={shipping}
 				lang={lang}
-				shoppingBagPreviewProps={{ onClick: handleShoppingBag }}
+				shoppingBagPreviewProps={{
+					onClick: handleShoppingBag
+				}}
 			/>
-			<section id='main' className='section'>
+			<section id='main' className={`section ${sectionOpacity}`}>
 				<div className='container'>{children}</div>
 			</section>
 			<Footer />

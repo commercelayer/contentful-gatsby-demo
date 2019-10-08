@@ -52,7 +52,7 @@ const ShoppingBag = ({ open, close }: ShoppingBagProps) => {
 						</a>
 					</div>
 					<div className='column'>
-						<CLayer.Checkout />
+						<CLayer.Checkout className={'button is-fullwidth is-success'} />
 					</div>
 				</div>
 			</div>

@@ -20,7 +20,10 @@ const Product = (props: ProductProps) => {
 			<div className='column'>
 				<h1 className='title'>{data.name}</h1>
 
-				<CLayer.Price skuCode={data.variants[0].code} />
+				<CLayer.Price
+					className='large has-text-success'
+					skuCode={data.variants[0].code}
+				/>
 
 				<div className='select is-fullwidth variant-select-wrap'>
 					<CLayer.VariantSelect
@@ -37,6 +40,7 @@ const Product = (props: ProductProps) => {
 					id='add-to-bag'
 					AvailabilityMessageContainerId='availability-message'
 					text={locale[lang].add_to_bag}
+					onClick={() => window.alert('beccato!')}
 				/>
 
 				<CLayer.AvailabilityMessageContainer id='availability-message' />
