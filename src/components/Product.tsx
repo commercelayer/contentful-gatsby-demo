@@ -4,7 +4,7 @@ import * as CLayer from 'commercelayer-react'
 import locale from '../locale/locale.json'
 
 const Product = (props: ProductProps) => {
-	const { lang, data } = props
+	const { lang, data, onClick } = props
 	const variants = data.variants.map(v => {
 		return {
 			code: v.code,
@@ -12,6 +12,14 @@ const Product = (props: ProductProps) => {
 			label: v.size.name
 		}
 	})
+	const amountProps = {
+		amount: {
+			className: 'large has-text-success'
+		},
+		compare: {
+			className: 'large has-text-grey-light'
+		}
+	}
 	return (
 		<div className='columns'>
 			<div className='column is-two-thirds'>
@@ -21,8 +29,8 @@ const Product = (props: ProductProps) => {
 				<h1 className='title'>{data.name}</h1>
 
 				<CLayer.Price
-					className='large has-text-success'
 					skuCode={data.variants[0].code}
+					AmountProps={amountProps}
 				/>
 
 				<div className='select is-fullwidth variant-select-wrap'>
@@ -40,7 +48,7 @@ const Product = (props: ProductProps) => {
 					id='add-to-bag'
 					AvailabilityMessageContainerId='availability-message'
 					text={locale[lang].add_to_bag}
-					onClick={() => window.alert('beccato!')}
+					onClick={onClick}
 				/>
 
 				<CLayer.AvailabilityMessageContainer id='availability-message' />

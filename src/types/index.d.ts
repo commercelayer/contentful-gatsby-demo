@@ -18,6 +18,7 @@ export interface ProductsProps extends BaseComponent {
 
 export interface ProductProps extends BaseComponent {
   data: any
+  onClick: () => void
 }
 
 export interface HeaderProps extends BaseComponent {

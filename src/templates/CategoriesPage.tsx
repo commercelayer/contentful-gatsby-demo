@@ -3,11 +3,19 @@ import Breadcrumb from '../components/Breadcrumb'
 import Categories from '../components/Categories'
 import { graphql } from 'gatsby'
 import Layout from '../components/Layout'
+import useShoppingBag from '../hooks'
+import SEO from '../components/seo'
 
 export default props => {
-	const { pageContext: { language, shipping, slug }, data } = props
+	const { pageContext: { language, shipping, slug, pageTitle }, data } = props
+	const [ status, setStatus ] = useShoppingBag()
 	return (
-		<Layout {...props}>
+		<Layout
+			{...props}
+			shoppingBagStatus={status}
+			setShoppingBagStatus={setStatus}
+		>
+			<SEO title={pageTitle} />
 			<Breadcrumb shop={shipping.toLowerCase()} lang={language} uri={slug} />
 			<Categories
 				shop={shipping.toLowerCase()}

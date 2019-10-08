@@ -45,7 +45,8 @@ exports.createPages = async ({ graphql, actions }) => {
 				// Data passed to context is available in page queries as GraphQL variables.
 				slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
 				language: node.node_locale,
-				shipping: node.code
+				shipping: node.code,
+				pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories'
 			}
 		})
 		node.catalogue.categories.map(c => {
@@ -64,7 +65,8 @@ exports.createPages = async ({ graphql, actions }) => {
 					language: node.node_locale,
 					shipping: node.code,
 					categoryId: c.contentful_id,
-					categorySlug
+					categorySlug,
+					pageTitle: c.name.trim()
 				}
 			})
 			c.products.map(p => {
@@ -81,7 +83,8 @@ exports.createPages = async ({ graphql, actions }) => {
 						categoryId: c.contentful_id,
 						categorySlug,
 						categoryName: c.name.trim(),
-						productId: p.contentful_id
+						productId: p.contentful_id,
+						pageTitle: p.name.trim()
 					}
 				})
 			})
