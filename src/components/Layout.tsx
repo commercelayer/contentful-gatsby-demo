@@ -11,20 +11,18 @@ const Layout = ({
 	children,
 	location,
 	shoppingBagStatus,
-	setShoppingBagStatus
+	setShoppingBagStatus,
+	...props
 }) => {
-	// const [ shoppingBagOpen, setShoppingBagOpen ] = React.useState(false)
-	const pathname = location.pathname.split('/').filter(s => s !== '')
-	const shipping = pathname[0]
-	const lang = pathname[1]
+	const { pageContext: { shipping, language } } = props
+	debugger
 	const marketId = shipping === 'us' ? '76' : '75'
-	// const handleShoppingBag = () => setShoppingBagOpen(!shoppingBagOpen)
 	const sectionOpacity = shoppingBagStatus ? 'open' : ''
 	return (
 		<React.Fragment>
 			<Header
 				shipping={shipping}
-				lang={lang}
+				lang={language}
 				shoppingBagPreviewProps={{
 					onClick: setShoppingBagStatus
 				}}
@@ -34,7 +32,7 @@ const Layout = ({
 			</section>
 			<Footer />
 			<ShoppingBag
-				lang={lang}
+				lang={language}
 				open={shoppingBagStatus}
 				close={setShoppingBagStatus}
 			/>

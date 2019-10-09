@@ -27,10 +27,10 @@ const CountrySelectorNav = ({ shipping, lang }) => {
 		}
 	`)
 	const countries = allContentfulCountry.edges.filter(
-		({ node }) => node.node_locale.toLowerCase() === lang
+		({ node }) => node.node_locale === lang
 	)
 	const selectedflag = allFile.edges.filter(
-		({ node }) => node.name === shipping
+		({ node }) => node.name === shipping.toLowerCase()
 	)
 	const flags = allFile.edges
 

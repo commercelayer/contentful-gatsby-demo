@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link, useStaticQuery, graphql } from 'gatsby'
 import locale from '../locale/locale.json'
+import _ from 'lodash'
 
 const LanguageSelector = ({ shipping, lang }) => {
 	const { allContentfulCountry, allFile } = useStaticQuery(graphql`
@@ -27,18 +28,21 @@ const LanguageSelector = ({ shipping, lang }) => {
 		}
 	`)
 	const countries = allContentfulCountry.edges.filter(
-		({ node }) => node.node_locale.toLowerCase() === lang
+		({ node }) => node.node_locale === lang
 	)
-	const selectedflag = allFile.edges.filter(
-		({ node }) => node.name === lang.replace('en-', '')
-	)[0].node
+	const selectedflag: any = allFile.edges.filter(
+		({ node }) => node.name === shipping.toLowerCase()
+	)
+	console.log('selectedflag :', selectedflag)
 	const flags = allFile.edges
 
 	return (
 		<div className='navbar-item has-dropdown is-hoverable'>
 			<a className='navbar-link is-capitalized'>
 				{locale[lang.replace('-us', '-US')].language}: &nbsp;{' '}
-				<img src={selectedflag.publicURL} width='20' />
+				{selectedflag.map((f, i) => (
+					<img key={i} src={f.node.publicURL} width='20' />
+				))}
 			</a>
 			<div className='navbar-dropdown'>
 				{countries.map(({ node: c }, i) => {
@@ -49,7 +53,7 @@ const LanguageSelector = ({ shipping, lang }) => {
 						<Link
 							key={i}
 							className='navbar-item is-capitalized'
-							to={`/${shipping}/${c.defaultLocale.toLowerCase()}/`}
+							to={`/${shipping.toLowerCase()}/${c.defaultLocale.toLowerCase()}/`}
 							state={{ marketId: c.market_id }}
 						>
 							{flag.map((f, k) => (

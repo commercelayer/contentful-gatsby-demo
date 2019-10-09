@@ -4,7 +4,7 @@ import { ShoppingBagProps } from '../types/index'
 import locale from '../locale/locale.json'
 
 const ShoppingBag = ({ open, close, lang }: ShoppingBagProps) => {
-	return (
+	return !lang ? null : (
 		<div id='shopping-bag' className={open ? 'open' : ''}>
 			<div className='shopping-bag-content'>
 				<div className='columns'>
