@@ -2,9 +2,12 @@ import React from 'react'
 import { ProductsProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
 import { Link } from 'gatsby'
+import { usePriceLoading } from '../hooks/index'
+import loader from '../images/three-dots-loader.svg'
 
 const Products = (props: ProductsProps) => {
 	const { data, shop, lang, categorySlug } = props
+	const loading = usePriceLoading('clayer-prices-ready')
 	return (
 		<div className='columns is-multiline is-mobile'>
 			{data.map((p, i) => {
@@ -26,6 +29,7 @@ const Products = (props: ProductsProps) => {
 							</h2>
 							<div className='is-size-7 is-hidden-mobile'>{p.reference}</div>
 							<CLayer.Price skuCode={p.variants[0].code} />
+							{loading ? <img src={loader} width='50' /> : null}
 						</div>
 					</div>
 				)

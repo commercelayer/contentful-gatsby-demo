@@ -33,7 +33,11 @@ const Layout = ({
 				<div className='container'>{children}</div>
 			</section>
 			<Footer />
-			<ShoppingBag open={shoppingBagStatus} close={setShoppingBagStatus} />
+			<ShoppingBag
+				lang={lang}
+				open={shoppingBagStatus}
+				close={setShoppingBagStatus}
+			/>
 			<CLayer.Config
 				baseUrl='https://contentful-commerce.commercelayer.io'
 				clientId='183336e806fd8d1389504b6fda842195bf50fee8fa62ccb52e1b19785f825314'

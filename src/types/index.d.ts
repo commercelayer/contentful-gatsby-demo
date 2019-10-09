@@ -18,7 +18,7 @@ export interface ProductsProps extends BaseComponent {
 
 export interface ProductProps extends BaseComponent {
   data: any
-  onClick: () => void
+  onClick: (e) => void
 }
 
 export interface HeaderProps extends BaseComponent {
@@ -30,7 +30,8 @@ export interface CategoriesProps extends BaseComponent {
 }
 
 export interface ShoppingBagProps {
-  open?: boolean
+  lang: string
+  open: boolean
   close?: () => void
 }
 

@@ -24,17 +24,8 @@ const Breadcrumb = (props: BreadcrumbProps) => {
 					<Link to={`/${shop}/${lang.toLowerCase()}`}>{label}</Link>
 				</li>
 				{categorySlug && (
-					<li
-						className={
-							productSlug ? 'is-capitalized' : 'is-capitalized is-active'
-						}
-					>
-						<Link
-							style={{
-								textTransform: 'capitalize'
-							}}
-							to={`/${shop}/${lang.toLowerCase()}/${categorySlug}`}
-						>
+					<li className={productSlug ? '' : 'is-active'}>
+						<Link to={`/${shop}/${lang.toLowerCase()}/${categorySlug}`}>
 							{categoryName}
 						</Link>
 					</li>

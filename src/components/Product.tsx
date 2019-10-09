@@ -1,10 +1,13 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { ProductProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
 import locale from '../locale/locale.json'
+import { usePriceLoading } from '../hooks/index'
+import loader from '../images/three-dots-loader.svg'
 
 const Product = (props: ProductProps) => {
 	const { lang, data, onClick } = props
+	const loading = usePriceLoading('clayer-prices-ready')
 	const variants = data.variants.map(v => {
 		return {
 			code: v.code,
@@ -28,10 +31,13 @@ const Product = (props: ProductProps) => {
 			<div className='column'>
 				<h1 className='title'>{data.name}</h1>
 
-				<CLayer.Price
-					skuCode={data.variants[0].code}
-					AmountProps={amountProps}
-				/>
+				<div className='large'>
+					<CLayer.Price
+						skuCode={data.variants[0].code}
+						AmountProps={amountProps}
+					/>
+					{loading ? <img src={loader} width='50' /> : null}
+				</div>
 
 				<div className='select is-fullwidth variant-select-wrap'>
 					<CLayer.VariantSelect

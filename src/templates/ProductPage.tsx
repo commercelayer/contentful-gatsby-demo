@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Breadcrumb from '../components/Breadcrumb'
 import Product from '../components/Product'
 import { graphql } from 'gatsby'
@@ -19,6 +19,12 @@ export default props => {
 		data
 	} = props
 	const [ status, setStatus ] = useShoppingBag()
+	const handleOnClick = e => {
+		if (e.target.hasAttribute('disabled')) {
+			return e.preventDefault()
+		}
+		setStatus()
+	}
 	return (
 		<Layout
 			{...props}
@@ -38,7 +44,7 @@ export default props => {
 				shop={shipping.toLowerCase()}
 				lang={language}
 				data={data.contentfulProduct}
-				onClick={setStatus}
+				onClick={handleOnClick}
 			/>
 		</Layout>
 	)

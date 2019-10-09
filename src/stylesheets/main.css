@@ -36,7 +36,8 @@ body {
 }
 .add-to-bag,
 .available-message,
-.unavailable-message {
+.unavailable-message,
+#availability-message {
 	margin-top: 20px;
 }
 .available-message,
@@ -90,7 +91,7 @@ body {
 }
 #main {
 	transition: opacity 0.5s;
-	min-height: 500px;
+	min-height: 600px;
 }
 #main.open {
 	opacity: 0.3;

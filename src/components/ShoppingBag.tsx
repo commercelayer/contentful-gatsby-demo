@@ -1,21 +1,24 @@
 import React from 'react'
 import * as CLayer from 'commercelayer-react'
 import { ShoppingBagProps } from '../types/index'
+import locale from '../locale/locale.json'
 
-const ShoppingBag = ({ open, close }: ShoppingBagProps) => {
+const ShoppingBag = ({ open, close, lang }: ShoppingBagProps) => {
 	return (
 		<div id='shopping-bag' className={open ? 'open' : ''}>
 			<div className='shopping-bag-content'>
 				<div className='columns'>
 					<div className='column'>
-						<h4 className='has-text-weight-bold'>Your shopping bag</h4>
+						<h4 className='has-text-weight-bold'>
+							{locale[lang].your_shopping_bag}
+						</h4>
 					</div>
 					<div className='column'>
 						<CLayer.ShoppingBagTotal />
 					</div>
 				</div>
 				<div className='shopping-bag-unavailable-message has-text-danger'>
-					Out of stock
+					{locale[lang].out_of_stock}
 				</div>
 				<CLayer.ShoppingBagItems
 					ItemsContainerTag='table'
@@ -48,7 +51,7 @@ const ShoppingBag = ({ open, close }: ShoppingBagProps) => {
 							id='shopping-bag-close'
 							onClick={close}
 						>
-							Continue shopping
+							{locale[lang].continue_shopping}
 						</a>
 					</div>
 					<div className='column'>
