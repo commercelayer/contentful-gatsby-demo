@@ -15,7 +15,7 @@ const Layout = ({
 	...props
 }) => {
 	const { pageContext: { shipping, language } } = props
-	const marketId = shipping.toLowerCase() === 'us' ? '76' : '75'
+	const marketId = shipping === 'US' ? '76' : '75'
 	const sectionOpacity = shoppingBagStatus ? 'open' : ''
 	return (
 		<React.Fragment>
