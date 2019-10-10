@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import Breadcrumb from '../components/Breadcrumb'
 import Product from '../components/Product'
 import { graphql } from 'gatsby'
@@ -19,11 +19,17 @@ export default props => {
 		data
 	} = props
 	const [ status, setStatus ] = useShoppingBag()
+	const delayTimer = useRef(null)
+	useEffect(() => {
+		return window.clearInterval(delayTimer.current)
+	})
 	const handleOnClick = e => {
 		if (e.target.hasAttribute('disabled')) {
 			return e.preventDefault()
 		}
-		setStatus()
+		delayTimer.current = window.setInterval(() => {
+			setStatus()
+		}, 1000)
 	}
 	return (
 		<Layout

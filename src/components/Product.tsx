@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { ProductProps } from '../types/index'
 import * as CLayer from 'commercelayer-react'
 import locale from '../locale/locale.json'
@@ -50,7 +50,7 @@ const Product = (props: ProductProps) => {
 					/>
 				</div>
 				<CLayer.AddToBag
-					className='add-to-bag button is-success is-fullwidth'
+					className={`add-to-bag button is-success is-fullwidth`}
 					id='add-to-bag'
 					AvailabilityMessageContainerId='availability-message'
 					text={locale[lang].add_to_bag}
