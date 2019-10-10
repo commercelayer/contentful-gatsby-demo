@@ -91,7 +91,7 @@ body {
 }
 #main {
 	transition: opacity 0.5s;
-	min-height: 80vh;
+	min-height: 72vh;
 }
 #main.open {
 	opacity: 0.3;
