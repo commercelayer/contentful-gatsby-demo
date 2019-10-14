@@ -31,7 +31,7 @@ const LanguageSelector = ({ shipping, lang }) => {
 		({ node }) => node.node_locale === lang
 	)
 	const selectedflag: any = allFile.edges.filter(
-		({ node }) => node.name === shipping.toLowerCase()
+		({ node }) => node.name === lang.toLowerCase().replace('en-', '')
 	)
 	const flags = allFile.edges
 
