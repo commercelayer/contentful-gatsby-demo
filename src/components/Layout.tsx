@@ -15,7 +15,7 @@ const Layout = ({
 	...props
 }) => {
 	const { pageContext: { shipping, language } } = props
-	const marketId = shipping === 'US' ? '76' : '75'
+	const marketId = shipping === 'US' ? '1510' : '1509'
 	const sectionOpacity = shoppingBagStatus ? 'open' : ''
 	return (
 		<React.Fragment>
@@ -36,11 +36,13 @@ const Layout = ({
 				close={setShoppingBagStatus}
 			/>
 			<CLayer.Config
-				baseUrl='https://contentful-commerce.commercelayer.io'
-				clientId='183336e806fd8d1389504b6fda842195bf50fee8fa62ccb52e1b19785f825314'
+				baseUrl='https://marvel.commercelayer.io'
+				clientId='709d8d691e2dd17a1a4ea7dd4658d811e4c1bac2bf50186c70ab52a904029435'
 				marketId={marketId}
 				countryCode={shipping ? shipping.toUpperCase() : 'US'}
-				languageCode='en'
+				languageCode={
+					language ? language.toLowerCase().replace('-us', '') : 'en'
+				}
 				cartUrl='https://contentful-gatsby-demo.netlify.com/'
 				returnUrl='https://contentful-gatsby-demo.netlify.com/'
 				privacyUrl='https://contentful-gatsby-demo.netlify.com/'
