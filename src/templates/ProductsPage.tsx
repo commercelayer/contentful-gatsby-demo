@@ -11,7 +11,13 @@ export default props => {
 		pageContext: { language, shipping, slug, categorySlug, pageTitle },
 		data
 	} = props
-	const [ status, setStatus ] = useShoppingBag()
+	const products =
+		language === 'it' &&
+		data.contentfulCategory.products_it &&
+		data.contentfulCategory.products_it.length > 0
+			? data.contentfulCategory.products_it
+			: data.contentfulCategory.products
+	const [status, setStatus] = useShoppingBag()
 	return (
 		<Layout
 			{...props}
@@ -29,7 +35,7 @@ export default props => {
 			<Products
 				shop={shipping.toLowerCase()}
 				lang={language.toLowerCase()}
-				data={data.contentfulCategory.products}
+				data={products}
 				categorySlug={categorySlug}
 			/>
 		</Layout>
@@ -42,9 +48,9 @@ export const query = graphql`
 			contentful_id: { eq: $categoryId }
 			node_locale: { eq: $language }
 		) {
-			contentful_id
 			name
 			products {
+				contentful_id
 				name
 				image {
 					file {
@@ -57,6 +63,19 @@ export const query = graphql`
 				}
 			}
 			node_locale
+			products_it {
+				contentful_id
+				name
+				image {
+					file {
+						url
+					}
+				}
+				reference
+				variants {
+					code
+				}
+			}
 		}
 	}
 `

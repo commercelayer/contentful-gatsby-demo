@@ -18,7 +18,7 @@ export default props => {
 		},
 		data
 	} = props
-	const [ status, setStatus ] = useShoppingBag()
+	const [status, setStatus] = useShoppingBag()
 	const delayTimer = useRef(null)
 	useEffect(() => {
 		return window.clearInterval(delayTimer.current)
@@ -57,8 +57,12 @@ export default props => {
 }
 
 export const query = graphql`
-	query Product($productId: String) {
-		contentfulProduct(contentful_id: { eq: $productId }) {
+	query Product($productId: String, $language: String) {
+		contentfulProduct(
+			contentful_id: { eq: $productId }
+			node_locale: { eq: $language }
+			variants: { elemMatch: { node_locale: { eq: $language } } }
+		) {
 			name
 			image {
 				file {

@@ -11,7 +11,7 @@ const Product = (props: ProductProps) => {
 	const variants = data.variants.map(v => {
 		return {
 			code: v.code,
-			name: v.name,
+			name: `${data.name} (${v.size.name})`,
 			label: v.size.name
 		}
 	})
