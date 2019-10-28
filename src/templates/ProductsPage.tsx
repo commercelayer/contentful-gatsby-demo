@@ -12,7 +12,7 @@ export default props => {
 		data
 	} = props
 	const products =
-		language === 'it' &&
+		shipping.toLowerCase() === 'it' &&
 		data.contentfulCategory.products_it &&
 		data.contentfulCategory.products_it.length > 0
 			? data.contentfulCategory.products_it
