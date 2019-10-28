@@ -41,7 +41,7 @@ const CountrySelector = () => {
 						dedicated catalog, price list, and inventory model.
 					</p>
 					<div className='columns is-mobile'>
-						{edges.map((c, i: number) => {
+						{edges.reverse().map((c, i: number) => {
 							const flag = flags.filter(
 								f => f.node.name === c.node.code.toLowerCase()
 							)
