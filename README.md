@@ -1,8 +1,8 @@
 # How to Build a Static Site Ecommerce with Contentful, Gatsby, and Commerce Layer
 
-Static sites are the future of Web: fast, secure, and scalable by design. We say that they are the future of e-commerce as well (enterprise included) and this tutorial aims to demonstrate our statement. It is based on [this blog post](https://www.contentful.com/blog/2018/11/07/how-build-static-site-ecommerce-jekyll-contentful-commerce-layer/), using Gatsby as the SSG instead of Jekyll.
+Static sites are the future of Web: fast, secure, and scalable by design. We say that they are the future of e-commerce as well (enterprise included) and this tutorial aims to demonstrate our statement. It is based on on the site architecture and development workflow presented in [this blog post](https://www.contentful.com/blog/2018/11/07/how-build-static-site-ecommerce-jekyll-contentful-commerce-layer/), except it uses Gatsby as the SSG instead of Jekyll.
 
-> Feel free to play with the live demo [here](https://contentful-gatsby-demo.netlify.com/).
+> Feel free to play with the new live demo [here](https://contentful-gatsby-demo.netlify.com/).
 
 
 
