@@ -204,11 +204,11 @@ It's worth to notice that all the pages and URLs are localized, optimizing SEO. 
 
 **US** :us:
 
-![Contentful + Commerce Layer (US catalog)](readme/images/products.png?raw=true "Contentful + Commerce Layer (US catalog)")
+![Contentful + Commerce Layer (US catalog)](docs/images/products.png?raw=true "Contentful + Commerce Layer (US catalog)")
 
 **IT** :it:
 
-![Contentful + Commerce Layer (IT catalog)](readme/images/products_it.png?raw=true "Contentful + Commerce Layer (IT catalog)")
+![Contentful + Commerce Layer (IT catalog)](docs/images/products_it.png?raw=true "Contentful + Commerce Layer (IT catalog)")
 
 The site has no prices yet. Time to add ecommerce to our beautiful products.
 
@@ -448,5 +448,3 @@ In this tutorial, we have built a static site ecommerce with the following enter
 We used Gatsby as the SSG, Contentful to manage content and Commerce Layer to add ecommerce to the site. This stack lets creatives and developers build any customer experience; content editors publish outstanding content and merchants manage their business and fulfill orders through the ecommerce platform.
 
 The next steps could be to add full-text search capabilities using a tool like [Algolia](https://www.algolia.com/) or build a customer account section where they can see their order history, manage their address books, and wallets.
-
-Instead of using the Commerce Layer hosted checkout, we could also develop a custom checkout experience through the [API](https://docs.commercelayer.io/api/), to fully match our branding requirements. Just note that in this case, we would need to grant more permissions to our channel application, removing the public access. This means that we would need to add some server-side component to our application, at least to manage the channel authentication and safely store its client_secret.
