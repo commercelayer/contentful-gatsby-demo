@@ -216,7 +216,7 @@ The site has no prices yet. Time to add ecommerce to our beautiful products.
 
 To start selling, we need a Commerce Layer sales channel application. Just get the one created by the initial seeder and take note of its credentials.
 
-![Commerce Layer Sales Channel Application](readme/images/sales_channel.png?raw=true "Commerce Layer Sales Channel Application")
+![Commerce Layer Sales Channel Application](docs/images/sales_channel.png?raw=true "Commerce Layer Sales Channel Application")
 
 Save your credentials in your local environment before installing the Commerce Layer Javascript library:
 
