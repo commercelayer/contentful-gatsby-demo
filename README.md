@@ -430,7 +430,7 @@ Regardless of the style, the relevant elements are the following:
 
 The result is a full-featured shopping bag that lets customers manage their line items and proceed to Commerce Layer hosted checkout :tada:
 
-![Contentful + Commerce Layer Shopping Bag](readme/images/shopping_bag.png?raw=true "Contentful + Commerce Layer Shopping Bag")
+![Contentful + Commerce Layer Shopping Bag](docs/images/shopping_bag.png?raw=true "Contentful + Commerce Layer Shopping Bag")
 
 >The demo features our open source [checkout application](https://github.com/commercelayer/commercelayer-checkout). It can be used as is or as a reference in case you need to develop a custom checkout experience through the [API](https://docs.commercelayer.io/api/), to fully match your branding requirements.
 
