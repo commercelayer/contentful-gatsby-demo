@@ -120,7 +120,7 @@ $ gem install commercelayer-cli
 $ commercelayer-cli export contentful
 ```
 
->Recently we released an [UI extension](https://www.contentful.com/developers/marketplace/commercelayer-sku/) that lets you visually associate an SKU to any model on Contentful. Check it out!
+>Recently we released an [UI extension](https://www.contentful.com/developers/marketplace/commercelayer-sku/) that lets you visually associate an SKU to any model on Contentful. It brings the SKU code into the content model, so that you can make it shoppable on the front-end by leveraging the Commerce Layer [API](https://docs.commercelayer.io/api/). Check it out!
 
 ## 3. Enrich the product catalog
 
