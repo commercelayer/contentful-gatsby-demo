@@ -216,7 +216,7 @@ The site has no prices yet. Time to add ecommerce to our beautiful products.
 
 To start selling, we need a Commerce Layer sales channel application. Just get the one created by the initial seeder and take note of its credentials.
 
-![Commerce Layer Channel Application](readme/images/channel.png?raw=true "Commerce Layer Channel Application")
+![Commerce Layer Sales Channel Application](readme/images/sales_channel.png?raw=true "Commerce Layer Sales Channel Application")
 
 Save your credentials in your local environment before installing the Commerce Layer Javascript library:
 
@@ -426,9 +426,9 @@ Regardless of the style, the relevant elements are the following:
 - **#shopping-bag-preview-total:** gets populated with the order total
 - **#shopping-bag-table:** the shopping bag line items container (table)
 - **#shopping-bag-close:** removes the ".open" class to the shopping bag container
-- **#shopping-bag-checkout:** redirects the customer to the hosted checkout pages
+- **#shopping-bag-checkout:** redirects the customer to the checkout pages
 
-The result is a full-featured shopping bag that lets customers manage their line items and proceed to Commerce Layer hosted checkout :tada:
+The result is a full-featured shopping bag that lets customers manage their line items and proceed to checkout :tada:
 
 ![Contentful + Commerce Layer Shopping Bag](docs/images/shopping_bag.png?raw=true "Contentful + Commerce Layer Shopping Bag")
 
