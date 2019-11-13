@@ -2,7 +2,7 @@
 
 Static sites are the future of Web: fast, secure, and scalable by design. We say that they are the future of e-commerce as well (enterprise included) and this tutorial aims to demonstrate our statement. Feel free to play with the live demo [here](https://contentful-gatsby-demo.netlify.com/).
 
->This tutorial is based on the original one built with Contentful, Jekyll, and Commerce Layer (you can get a high-level overview of how it works on the [Contentful blog](https://www.contentful.com/blog/2018/11/07/how-build-static-site-ecommerce-jekyll-contentful-commerce-layer/)) and it features the same bulk import to populate Contentful with some test data. Alternatively, you can use our [UI extension](https://www.contentful.com/developers/marketplace/commercelayer-sku/) that lets you visually associate an SKU to any model on Contentful.
+>This tutorial is based on [this blog post](https://www.contentful.com/blog/2018/11/07/how-build-static-site-ecommerce-jekyll-contentful-commerce-layer/), using Gatsby as the SSG instead of Jekyll.
 
 **TIP**: Use the `4111 1111 1111 1111` test card (with any CVV and future expiration date) if you want to place a test order.
 
@@ -120,6 +120,8 @@ Finally, export your sample data into Contentful by running the following comman
 $ gem install commercelayer-cli
 $ commercelayer-cli export contentful
 ```
+
+>Recently we released an [UI extension](https://www.contentful.com/developers/marketplace/commercelayer-sku/) that lets you visually associate an SKU to any model on Contentful. Check it out!
 
 ## 3. Enrich the product catalog
 
