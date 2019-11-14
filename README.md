@@ -130,7 +130,7 @@ The SKUs that we exported from Commerce Layer to Contentful created a list of va
 
 Now that we have all our content and commerce models set up, it's time to create the website.
 First all, we have to follow Gabtsby's quick start](https://www.gatsbyjs.org/docs/quick-start/) for preparing our environment.
-Run the following commands to install [Contenful plugin](https://www.gatsbyjs.org/packages/gatsby-source-contentful/):
+After we run the following commands to install [Contenful plugin](https://www.gatsbyjs.org/packages/gatsby-source-contentful/):
 
 ```bash
 $ npm install --save gatsby-source-contentful
@@ -144,7 +144,7 @@ CONTENTFUL_SPACE_ID=YOUR_SPACE_ID
 CONTENTFUL_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
-And we go to set the configuration into our `gatsby-config.js` :
+Go to set the configuration into our `gatsby-config.js`:
 ```js
 {
   resolve: `gatsby-source-contentful`,
@@ -156,11 +156,11 @@ And we go to set the configuration into our `gatsby-config.js` :
 ```
 > Reminder: Learn about environment variables: https://gatsby.dev/env-vars
 
-Well done! Now we can pass the next step, we have to create our pages from Contentful and can follow this tutorial about [creating pages](https://www.gatsbyjs.org/tutorial/part-seven/).
+Well done! Now we can pass to next step, we have to create our pages from Contentful and can follow this tutorial about [creating pages](https://www.gatsbyjs.org/tutorial/part-seven/).
 
 ## 5. Create a custom page generator
 
-To create our flow for creating dynamically the pages, we write in `gatsby-node.js` the following steps:
+To create our custom page generator, we write in `gatsby-node.js` the following code:
 
 ```js
 // Read all data from Contentful
@@ -193,7 +193,7 @@ exports.createPages = async ({ graphql, actions }) => {
 }
 ```
 
-Got everything from Contentful we will have to use as slug for our pages.
+Got everything from Contentful we have to create a slug for our pages.
 
 ```js
 // ...
@@ -256,9 +256,11 @@ result.data.allContentfulCountry.edges.forEach(({ node }) => {
 
 Voilà! 😎 
 
-Now we are ready to create our templates, for example we can take in consideration this path `./src/templates/ProductsPage.tsx`:
+Now we are ready to create our template. For example we can write the products page:
 
 ```tsx
+// ProductsPage.tsx
+
 import React from 'react'
 import Breadcrumb from '../components/Breadcrumb'
 import Products from '../components/Products'
@@ -342,7 +344,7 @@ export const query = graphql`
 `
 ```
 
-Run the following command for showing our Contentful data:
+Run the following command for showing our application:
 
 ```bash
 $ gatsby develop
@@ -449,7 +451,7 @@ const Layout = ({
 
 ### Add prices
 
-To make the prices appear, add the following snippets to the products and product templates. The library will look into the page and populate the price amounts for each element that contains a *skuCode* attribute:
+To make the prices appear, add the following snippets to the products and product templates. The library will look into the page and populate the price amounts for each element that contains a *skuCode* property:
 
 ```tsx
 // Products.tsx and Product.tsx
