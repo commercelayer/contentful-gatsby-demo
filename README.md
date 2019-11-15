@@ -132,20 +132,20 @@ Now that we have all our content and commerce models set up, it's time to create
 First all, we have to follow Gabtsby's quick start](https://www.gatsbyjs.org/docs/quick-start/) for preparing our environment.
 After we run the following commands to install [Contenful plugin](https://www.gatsbyjs.org/packages/gatsby-source-contentful/):
 
-```bash
+```
 $ npm install --save gatsby-source-contentful
 ```
 
 We create `.env` file and set our variables:
 
-```BASH
+```
 # .env
 CONTENTFUL_SPACE_ID=YOUR_SPACE_ID
-CONTENTFUL_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
+CONTENTFUL_DELIVERY_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
 Go to set the configuration into our `gatsby-config.js`:
-```js
+```s
 {
   resolve: `gatsby-source-contentful`,
   options: {
@@ -162,104 +162,104 @@ Well done! Now we can pass to next step, we have to create our pages from Conten
 
 To create our custom page generator, we write in `gatsby-node.js` the following code:
 
-```js
+```
 // Read all data from Contentful
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
-	const result = await graphql(`
+  const result = await graphql(`
     query {
-			allContentfulCountry {
-				edges {
-					node {
-						node_locale
-						code
-						catalogue {
-							name
-							node_locale
-							categories {
-								name
-								products {
-									name
-									contentful_id
-								}
-								contentful_id
-							}
-						}
-					}
-				}
-			}
-		}
-  `)
+      allContentfulCountry {
+        edges {
+          node {
+            node_locale
+            code
+            catalogue {
+              name
+              node_locale
+              categories {
+                name
+                products {
+                  name
+                  contentful_id
+                }
+                contentful_id
+              }
+            }
+          }
+        }
+      }
+    }
+  )
 }
 ```
 
 Got everything from Contentful we have to create a slug for our pages.
 
-```js
+```
 // ...
 
 result.data.allContentfulCountry.edges.forEach(({ node }) => {
-		// Catalogue page
-		createPage({
-			path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
-			component: path.resolve(`./src/templates/CategoriesPage.tsx`),
-			context: {
-				// Data passed to context is available in page queries as GraphQL variables.
-				slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
-				language: node.node_locale,
-				shipping: node.code,
-				pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories'
-			}
-		})
-		node.catalogue.categories.map(c => {
-			const categorySlug = c.name
-				.trim()
-				.toLowerCase()
-				.replace(' & ', ' ')
-				.replace(/\s/gm, '-')
-			// Category page
-			createPage({
-				path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
-				component: path.resolve(`./src/templates/ProductsPage.tsx`),
-				context: {
-					// Data passed to context is available in page queries as GraphQL variables.
-					slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
-					language: node.node_locale,
-					shipping: node.code,
-					categoryId: c.contentful_id,
-					categorySlug,
-					pageTitle: c.name.trim()
-				}
-			})
-			c.products.map(p => {
-				const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
-				// Product
-				createPage({
-					path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
-					component: path.resolve(`./src/templates/ProductPage.tsx`),
-					context: {
-						// Data passed to context is available in page queries as GraphQL variables.
-						slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
-						language: node.node_locale,
-						shipping: node.code,
-						categoryId: c.contentful_id,
-						categorySlug,
-						categoryName: c.name.trim(),
-						productId: p.contentful_id,
-						pageTitle: p.name.trim()
-					}
-				})
-			})
-		})
-	})
+  // Catalogue page
+  createPage({
+    path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
+    component: path.resolve(`./src/templates/CatalogPage.tsx`),
+    context: {
+      // Data passed to context is available in page queries as GraphQL variables.
+      slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
+      language: node.node_locale,
+      shipping: node.code,
+      pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories'
+    }
+  })
+  node.catalogue.categories.map(c => {
+    const categorySlug = c.name
+      .trim()
+      .toLowerCase()
+      .replace(' & ', ' ')
+      .replace(/\s/gm, '-')
+    // Category page
+    createPage({
+      path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
+      component: path.resolve(`./src/templates/CategoryPage.tsx`),
+      context: {
+        // Data passed to context is available in page queries as GraphQL variables.
+        slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
+        language: node.node_locale,
+        shipping: node.code,
+        categoryId: c.contentful_id,
+        categorySlug,
+        pageTitle: c.name.trim()
+      }
+    })
+    c.products.map(p => {
+      const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
+      // Product
+      createPage({
+        path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
+        component: path.resolve(`./src/templates/ProductPage.tsx`),
+        context: {
+          // Data passed to context is available in page queries as GraphQL variables.
+          slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
+          language: node.node_locale,
+          shipping: node.code,
+          categoryId: c.contentful_id,
+          categorySlug,
+          categoryName: c.name.trim(),
+          productId: p.contentful_id,
+          pageTitle: p.name.trim()
+        }
+      })
+    })
+  })
+})
 ```
 
 Voilà! 😎 
 
-Now we are ready to create our template. For example we can write the products page:
+Now we are ready to create our [templates](./src/templates). For example we can write the products page:
 
-```tsx
-// ProductsPage.tsx
+```
+// CategoryPage.tsx
 
 import React from 'react'
 import Breadcrumb from '../components/Breadcrumb'
@@ -269,84 +269,86 @@ import Layout from '../components/Layout'
 import useShoppingBag from '../hooks'
 import SEO from '../components/seo'
 
-export default props => {
-	const {
-		pageContext: { language, shipping, slug, categorySlug, pageTitle },
-		data
-	} = props
-	const products =
-		shipping.toLowerCase() === 'it' &&
-		data.contentfulCategory.products_it &&
-		data.contentfulCategory.products_it.length > 0
-			? data.contentfulCategory.products_it
-			: data.contentfulCategory.products
-	const [status, setStatus] = useShoppingBag()
-	return (
-		<Layout
-			{...props}
-			shoppingBagStatus={status}
-			setShoppingBagStatus={setStatus}
-		>
-			<SEO title={pageTitle} />
-			<Breadcrumb
-				shop={shipping.toLowerCase()}
-				lang={language}
-				uri={slug}
-				categorySlug={categorySlug}
-				categoryName={data.contentfulCategory.name.trim()}
-			/>
-			<Products
-				shop={shipping.toLowerCase()}
-				lang={language.toLowerCase()}
-				data={products}
-				categorySlug={categorySlug}
-			/>
-		</Layout>
-	)
+export default (props) => {
+  const {
+    pageContext: { language, shipping, slug, categorySlug, pageTitle }, data
+  } = props
+
+  const products =
+    shipping.toLowerCase() === 'it' &&
+    data.contentfulCategory.products_it &&
+    data.contentfulCategory.products_it.length > 0
+      ? data.contentfulCategory.products_it
+      : data.contentfulCategory.products
+    
+  const [status, setStatus] = useShoppingBag()
+  
+  return (
+    <Layout
+      {...props}
+      shoppingBagStatus={status}
+      setShoppingBagStatus={setStatus}
+    >
+      <SEO title={pageTitle} />
+      <Breadcrumb
+        shop={shipping.toLowerCase()}
+        lang={language}
+        uri={slug}
+        categorySlug={categorySlug}
+        categoryName={data.contentfulCategory.name.trim()}
+      />
+      <Products
+        shop={shipping.toLowerCase()}
+        lang={language.toLowerCase()}
+        data={products}
+        categorySlug={categorySlug}
+      />
+    </Layout>
+  )
 }
 
 export const query = graphql`
-	query Products($categoryId: String, $language: String) {
-		contentfulCategory(
-			contentful_id: { eq: $categoryId }
-			node_locale: { eq: $language }
-		) {
-			name
-			products {
-				contentful_id
-				name
-				image {
-					file {
-						url
-					}
-				}
-				reference
-				variants {
-					code
-				}
-			}
-			node_locale
-			products_it {
-				contentful_id
-				name
-				image {
-					file {
-						url
-					}
-				}
-				reference
-				variants {
-					code
-				}
-			}
-		}
-	}
+  query Products($categoryId: String, $language: String) {
+    contentfulCategory(
+      contentful_id: { eq: $categoryId }
+      node_locale: { eq: $language }
+    ) {
+      name
+      products {
+        contentful_id
+        name
+        image {
+          file {
+            url
+          }
+        }
+        reference
+        variants {
+          code
+        }
+      }
+      node_locale
+      products_it {
+        contentful_id
+        name
+        image {
+          file {
+            url
+          }
+        }
+        reference
+        variants {
+          code
+        }
+      }
+    }
+  }
 `
 ```
 
 Run the following command for showing our application:
 
-```bash
+```
 $ gatsby develop
 ```
 
@@ -374,11 +376,11 @@ We made a [gatsby plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-commer
 
 Let's add it to our project, using npm:
 
-```bash
+```
 $ npm install gatsby-plugin-commercelayer
 ```
 
-```js
+```
 // gatsby-config.js
 modules.export = {
 	// ...
@@ -392,7 +394,7 @@ modules.export = {
 
 Add the configuration about Commerce Layer to `Layout.tsx`
 
-```tsx
+```
 import React from 'react'
 import PropTypes from 'prop-types'
 import * as CLayer from 'commercelayer-react'
@@ -403,58 +405,57 @@ import '../stylesheets/main.css'
 import ShoppingBag from './ShoppingBag'
 
 const Layout = ({
-	children,
-	location,
-	shoppingBagStatus,
-	setShoppingBagStatus,
-	...props
+  children,
+  location,
+  shoppingBagStatus,
+  setShoppingBagStatus,
+  ...props
 }) => {
-	const { pageContext: { shipping, language } } = props
-	const marketId = shipping === 'US' ? '76' : '75'
-	const sectionOpacity = shoppingBagStatus ? 'open' : ''
-	return (
-		<React.Fragment>
-			<Header
-				shipping={shipping}
-				lang={language}
-				shoppingBagPreviewProps={{
-					onClick: setShoppingBagStatus
-				}}
-			/>
-			<section id='main' className={`section ${sectionOpacity}`}>
-				<div className='container'>{children}</div>
-			</section>
-			<Footer />
-			<ShoppingBag
-				lang={language}
-				open={shoppingBagStatus}
-				close={setShoppingBagStatus}
-			/>
-			<CLayer.Config
-				baseUrl='https://yourdomain.commercelayer.io'
-				clientId='YOUR_CLIENT_ID'
-				marketId={marketId}
-				countryCode={shipping ? shipping.toUpperCase() : 'US'}
-				languageCode={
-					language ? language.toLowerCase().replace('-us', '') : 'en'
-				}
-				cartUrl='https://contentful-gatsby-demo.netlify.com/'
-				returnUrl='https://contentful-gatsby-demo.netlify.com/'
-				privacyUrl='https://contentful-gatsby-demo.netlify.com/'
-				termsUrl='https://contentful-gatsby-demo.netlify.com/'
-			/>
-		</React.Fragment>
-	)
+  const { pageContext: { shipping, language } } = props
+  const marketId = shipping === 'US' ? '76' : '75'
+  const sectionOpacity = shoppingBagStatus ? 'open' : ''
+  return (
+    <React.Fragment>
+      <Header
+        shipping={shipping}
+        lang={language}
+        shoppingBagPreviewProps={{
+          onClick: setShoppingBagStatus
+        }}
+      />
+      <section id='main' className={`section ${sectionOpacity}`}>
+        <div className='container'>{children}</div>
+      </section>
+      <Footer />
+      <ShoppingBag
+        lang={language}
+        open={shoppingBagStatus}
+        close={setShoppingBagStatus}
+      />
+      <CLayer.Config
+        baseUrl='https://yourdomain.commercelayer.io'
+        clientId='YOUR_CLIENT_ID'
+        marketId={marketId}
+        countryCode={shipping ? shipping.toUpperCase() : 'US'}
+        languageCode={
+          language ? language.toLowerCase().replace('-us', '') : 'en'
+        }
+        cartUrl='https://contentful-gatsby-demo.netlify.com/'
+        returnUrl='https://contentful-gatsby-demo.netlify.com/'
+        privacyUrl='https://contentful-gatsby-demo.netlify.com/'
+        termsUrl='https://contentful-gatsby-demo.netlify.com/'
+      />
+    </React.Fragment>
+  )
 }
-
 ```
 
 ### Add prices
 
 To make the prices appear, add the following snippets to the products and product templates. The library will look into the page and populate the price amounts for each element that contains a *skuCode* property:
 
-```tsx
-// Products.tsx and Product.tsx
+```
+// ./src/components/Product.tsx
 import * as CLayer from 'commercelayer-react'
 
 // Your React Component
@@ -463,19 +464,20 @@ return (
   <CLayer.Price skuCode={p.variants[0].code} />
   // ...
 )
-
 ```
 
 ### Add availability messages
 
 With a similar approach, the JS library searches pages for elements with class `.variant` and checks their availability on Commerce Layer by their `data-sku-code`. It also adds the required event listeners to the `.variant-select` dropdown and to the `.add-to-bag` button, activating the purchasing functions. When a variant option is selected, the `.available-message` gets populated with the selected variant's delivery lead time information and shows the `.unavailable-message` when it goes out of stock.
 
-```tsx
-// Product.tsx
+We go to made the product component and later we will put in [`ProductPage.tsx`](./src/templates/ProductPage.tsx)
+
+```
+// ./src/components/Product.tsx
 
 return (
-	// ...
-	<CLayer.VariantSelect
+  // ...
+  <CLayer.VariantSelect
     className='variant-select'
     PriceContainerId='price'
     AvailabilityMessageContainerId='availability-message'
@@ -511,97 +513,93 @@ return (
     unavailableTemplate={<p>{locale[lang].not_available}</p>}
   />
 )
-
 ```
 
 ### Add a shopping bag
 
 The final step is to add the required markup to the DOM to enable the shopping bag and the shopping bag preview components:
 
-```tsx
+```
 // ShoppingBagPreview.tsx
 
 const ShoppingBagPreview = ({ onClick }) => {
-	return (
-		<a className='navbar-item' id='shopping-bag-toggle' onClick={onClick}>
-			<span className='icon'>
-				<FontAwesomeIcon icon={faShoppingBag} />
-			</span>
-			<span
-				className='clayer-shopping-bag-items-count tag is-warning is-rounded'
-				id='shopping-bag-preview-count'
-			>
-				0
-			</span>
-		</a>
-	)
+  return (
+    <a className='navbar-item' id='shopping-bag-toggle' onClick={onClick}>
+      <span className='icon'>
+        <FontAwesomeIcon icon={faShoppingBag} />
+      </span>
+      <span
+        className='clayer-shopping-bag-items-count tag is-warning is-rounded'
+        id='shopping-bag-preview-count'
+      >
+        0
+      </span>
+    </a>
+  )
 }
-
 ```
-
-```tsx
+```
 // ShoppingBag.tsx
 
 const ShoppingBag = ({ open, close, lang }: ShoppingBagProps) => {
-	return !lang ? null : (
-		<div id='shopping-bag' className={open ? 'open' : ''}>
-			<div className='shopping-bag-content'>
-				<div className='columns'>
-					<div className='column'>
-						<h4 className='has-text-weight-bold'>
-							{locale[lang].your_shopping_bag}
-						</h4>
-					</div>
-					<div className='column'>
-						<CLayer.ShoppingBagTotal />
-					</div>
-				</div>
-				<div className='shopping-bag-unavailable-message has-text-danger'>
-					{locale[lang].out_of_stock}
-				</div>
-				<CLayer.ShoppingBagItems
-					ItemsContainerTag='table'
-					itemTemplate={
-						<table id='shopping-bag-table' className='table is-fullwidth'>
-							<tr>
-								<td className='shopping-bag-col shopping-bag-col-image'>
-									<CLayer.ShoppingBagItemImage />
-								</td>
-								<td className='shopping-bag-col shopping-bag-col-name'>
-									<CLayer.ShoppingBagItemName />
-								</td>
-								<td className='shopping-bag-col shopping-bag-col-qty'>
-									<CLayer.ShoppingBagItemQtyContainer />
-								</td>
-								<td className='shopping-bag-col shopping-bag-col-total'>
-									<CLayer.ShoppingBagItemUnitAmount />
-								</td>
-								<td className='shopping-bag-col shopping-bag-col-remove'>
-									<CLayer.ShoppingBagItemRemove />
-								</td>
-							</tr>
-						</table>
-					}
-				/>
-				<div className='columns'>
-					<div className='column'>
-						<a
-							className='button is-fullwidth'
-							id='shopping-bag-close'
-							onClick={close}
-						>
-							{locale[lang].continue_shopping}
-						</a>
-					</div>
-					<div className='column'>
-						<CLayer.Checkout className={'button is-fullwidth is-success'} />
-					</div>
-				</div>
-			</div>
-		</div>
-	)
+  return !lang ? null : (
+    <div id='shopping-bag' className={open ? 'open' : ''}>
+      <div className='shopping-bag-content'>
+        <div className='columns'>
+          <div className='column'>
+            <h4 className='has-text-weight-bold'>
+              {locale[lang].your_shopping_bag}
+            </h4>
+          </div>
+          <div className='column'>
+            <CLayer.ShoppingBagTotal />
+          </div>
+        </div>
+        <div className='shopping-bag-unavailable-message has-text-danger'>
+          {locale[lang].out_of_stock}
+        </div>
+        <CLayer.ShoppingBagItems
+          ItemsContainerTag='table'
+          itemTemplate={
+            <table id='shopping-bag-table' className='table is-fullwidth'>
+              <tr>
+                <td className='shopping-bag-col shopping-bag-col-image'>
+                  <CLayer.ShoppingBagItemImage />
+                </td>
+                <td className='shopping-bag-col shopping-bag-col-name'>
+                  <CLayer.ShoppingBagItemName />
+                </td>
+                <td className='shopping-bag-col shopping-bag-col-qty'>
+                  <CLayer.ShoppingBagItemQtyContainer />
+                </td>
+                <td className='shopping-bag-col shopping-bag-col-total'>
+                  <CLayer.ShoppingBagItemUnitAmount />
+                </td>
+                <td className='shopping-bag-col shopping-bag-col-remove'>
+                  <CLayer.ShoppingBagItemRemove />
+                </td>
+              </tr>
+            </table>
+          }
+        />
+        <div className='columns'>
+          <div className='column'>
+            <a
+              className='button is-fullwidth'
+              id='shopping-bag-close'
+              onClick={close}
+            >
+              {locale[lang].continue_shopping}
+            </a>
+          </div>
+          <div className='column'>
+            <CLayer.Checkout className={'button is-fullwidth is-success'} />
+          </div>
+        </div>
+      </div>
+    </div>
+  )
 }
-
 ```
 
 Regardless of the style, the relevant elements are the following:
