@@ -129,14 +129,21 @@ The SKUs that we exported from Commerce Layer to Contentful created a list of va
 ## 4. Create the Gatsby site and import catalogs
 
 Now that we have all our content and commerce models set up, it's time to create the website.
-First all, we have to follow Gabtsby's quick start](https://www.gatsbyjs.org/docs/quick-start/) for preparing our environment.
-After we run the following commands to install [Contenful plugin](https://www.gatsbyjs.org/packages/gatsby-source-contentful/):
+First of all, follow [Gabtsby quick start](https://www.gatsbyjs.org/docs/quick-start/) and prepare the environment.
+
+```
+$ npm install -g gatsby-cli
+$ gatsby new contentful-gatsby-demo
+$ cd contentful-gatsby-demo
+```
+
+Then run the following command to install the [Contenful plugin](https://www.gatsbyjs.org/packages/gatsby-source-contentful/) for pulling content types, entries, and assets into Gatsby from your Contentful space:
 
 ```
 $ npm install --save gatsby-source-contentful
 ```
 
-We create `.env` file and set our variables:
+Create a `.env` file and store your credentials as follows:
 
 ```
 # .env
@@ -144,8 +151,9 @@ CONTENTFUL_SPACE_ID=YOUR_SPACE_ID
 CONTENTFUL_DELIVERY_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
-Go to set the configuration into our `gatsby-config.js`:
-```s
+Add the following code to `gatsby-config.js`:
+
+```
 {
   resolve: `gatsby-source-contentful`,
   options: {
@@ -154,16 +162,20 @@ Go to set the configuration into our `gatsby-config.js`:
   }
 }
 ```
-> Reminder: Learn about environment variables: https://gatsby.dev/env-vars
 
-Well done! Now we can pass to next step, we have to create our pages from Contentful and can follow this tutorial about [creating pages](https://www.gatsbyjs.org/tutorial/part-seven/).
+> If you want to learn more about environment variables and how to use them to customise your site's behavior in different environments, please check this [Gatsby custom configuration reference guide](https://gatsby.dev/env-vars).
+
+What we need now is to generate a page for each catalogue, category and product, all scoped by country and language. Since Gatsby doesn't generate data pages out of the box, we need to create a custom generator.
 
 ## 5. Create a custom page generator
 
-To create our custom page generator, we write in `gatsby-node.js` the following code:
+Let's use this [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-seven/) on how to programmatically create pages from data, as a starter. The custom generator will iterate over the imported data and create all the required pages. 
+
+Add the following code to `gatsby-node.js`:
 
 ```
 // Read all data from Contentful
+
 exports.createPages = async ({ graphql, actions }) => {
   const { createPage } = actions
   const result = await graphql(`
@@ -193,7 +205,7 @@ exports.createPages = async ({ graphql, actions }) => {
 }
 ```
 
-Got everything from Contentful we have to create a slug for our pages.
+Now that we have imported all the data from Contentful, we need to create a slug for our pages.
 
 ```
 // ...
@@ -254,9 +266,7 @@ result.data.allContentfulCountry.edges.forEach(({ node }) => {
 })
 ```
 
-Voilà! 😎 
-
-Now we are ready to create our [templates](./src/templates). For example we can write the products page:
+Now we are ready to create our [templates](./src/templates). For example, the category page one will look like this:
 
 ```
 // CategoryPage.tsx
@@ -345,12 +355,15 @@ export const query = graphql`
   }
 `
 ```
-
-Run the following command for showing our application:
+Follow the example above to create the catalogue and product page templates. Then run the following command get the first version of the site:
 
 ```
 $ gatsby develop
 ```
+
+>It's worth to notice that all the pages and URLs are localized, optimizing SEO. Moreover, the two countries show different catalogs.
+
+For example, the T-shirts category has a different merchandising for the US and Italy:
 
 **US** :us:
 
