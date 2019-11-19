@@ -381,13 +381,9 @@ To start selling, we need a Commerce Layer sales channel application. Just get t
 
 ![Commerce Layer Sales Channel Application](docs/images/sales_channel.png?raw=true "Commerce Layer Sales Channel Application")
 
-### Install the JS library
+### Install the Gatsby Plugin
 
-Commerce Layer ships with a [Javascript library](https://github.com/commercelayer/commercelayer-js) that can be dropped into any website to make its content shoppable. Despite being very simple, it can be used as-is or as a starting point for your own custom code (contributors are welcome!).
-
-We made a [gatsby plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-commercelayer) of course! This library has as dependence our [ReactJs library](https://github.com/commercelayer/commercelayer-react) that we should use for getting the final result.
-
-Let's add it to our project, using npm:
+We made a [gatsby plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-commercelayer) of course! Let's add it to our project, using npm:
 
 ```
 $ npm install gatsby-plugin-commercelayer
@@ -405,62 +401,24 @@ modules.export = {
 
 ```
 
-Add the configuration about Commerce Layer to `Layout.tsx`
+Add the configuration about Commerce Layer to [`Layout.tsx`](./src/components/)
 
 ```
-import React from 'react'
-import PropTypes from 'prop-types'
-import * as CLayer from 'commercelayer-react'
-import Header from './Header'
-import Footer from './Footer'
-import 'bulma'
-import '../stylesheets/main.css'
-import ShoppingBag from './ShoppingBag'
-
-const Layout = ({
-  children,
-  location,
-  shoppingBagStatus,
-  setShoppingBagStatus,
-  ...props
-}) => {
-  const { pageContext: { shipping, language } } = props
-  const marketId = shipping === 'US' ? '76' : '75'
-  const sectionOpacity = shoppingBagStatus ? 'open' : ''
-  return (
-    <React.Fragment>
-      <Header
-        shipping={shipping}
-        lang={language}
-        shoppingBagPreviewProps={{
-          onClick: setShoppingBagStatus
-        }}
-      />
-      <section id='main' className={`section ${sectionOpacity}`}>
-        <div className='container'>{children}</div>
-      </section>
-      <Footer />
-      <ShoppingBag
-        lang={language}
-        open={shoppingBagStatus}
-        close={setShoppingBagStatus}
-      />
-      <CLayer.Config
-        baseUrl='https://yourdomain.commercelayer.io'
-        clientId='YOUR_CLIENT_ID'
-        marketId={marketId}
-        countryCode={shipping ? shipping.toUpperCase() : 'US'}
-        languageCode={
-          language ? language.toLowerCase().replace('-us', '') : 'en'
-        }
-        cartUrl='https://contentful-gatsby-demo.netlify.com/'
-        returnUrl='https://contentful-gatsby-demo.netlify.com/'
-        privacyUrl='https://contentful-gatsby-demo.netlify.com/'
-        termsUrl='https://contentful-gatsby-demo.netlify.com/'
-      />
-    </React.Fragment>
-  )
-}
+  // ...
+  <CLayer.Config
+    baseUrl='https://yourdomain.commercelayer.io'
+    clientId='YOUR_CLIENT_ID'
+    marketId={marketId}
+    countryCode={shipping ? shipping.toUpperCase() : 'US'}
+    languageCode={
+      language ? language.toLowerCase().replace('-us', '') : 'en'
+    }
+    cartUrl='https://contentful-gatsby-demo.netlify.com/'
+    returnUrl='https://contentful-gatsby-demo.netlify.com/'
+    privacyUrl='https://contentful-gatsby-demo.netlify.com/'
+    termsUrl='https://contentful-gatsby-demo.netlify.com/'
+  />
+  //....
 ```
 
 ### Add prices
@@ -481,30 +439,12 @@ return (
 
 ### Add availability messages
 
-With a similar approach, the JS library searches pages for elements with class `.variant` and checks their availability on Commerce Layer by their `data-sku-code`. It also adds the required event listeners to the `.variant-select` dropdown and to the `.add-to-bag` button, activating the purchasing functions. When a variant option is selected, the `.available-message` gets populated with the selected variant's delivery lead time information and shows the `.unavailable-message` when it goes out of stock.
-
-We go to made the product component and later we will put in [`ProductPage.tsx`](./src/templates/ProductPage.tsx)
-
+Our libray gives us the possibility to check the availability with few simple components that now we have to add them in [Product.tsx](./src/components/Product.tsx)
 ```
-// ./src/components/Product.tsx
+// ...
 
 return (
   // ...
-  <CLayer.VariantSelect
-    className='variant-select'
-    PriceContainerId='price'
-    AvailabilityMessageContainerId='availability-message'
-    AddToBagId='add-to-bag'
-    promptText={locale[lang].select_size}
-    skus={variants}
-  />
-  <CLayer.AddToBag
-    className={`add-to-bag button is-success is-fullwidth`}
-    id='add-to-bag'
-    AvailabilityMessageContainerId='availability-message'
-    text={locale[lang].add_to_bag}
-    onClick={onClick}
-  />
   <CLayer.AvailabilityMessageContainer id='availability-message' />
   <CLayer.AvailabilityMessageAvailableTemplate
     className='available-message has-text-success'
@@ -532,9 +472,8 @@ return (
 
 The final step is to add the required markup to the DOM to enable the shopping bag and the shopping bag preview components:
 
+[ShoppingBagPreview.tsx](./src/components/ShoppingBagPreview.tsx)
 ```
-// ShoppingBagPreview.tsx
-
 const ShoppingBagPreview = ({ onClick }) => {
   return (
     <a className='navbar-item' id='shopping-bag-toggle' onClick={onClick}>
@@ -551,70 +490,61 @@ const ShoppingBagPreview = ({ onClick }) => {
   )
 }
 ```
+[ShoppingBag.tsx](./src/components/ShoppingBag.tsx)
 ```
-// ShoppingBag.tsx
-
-const ShoppingBag = ({ open, close, lang }: ShoppingBagProps) => {
-  return !lang ? null : (
-    <div id='shopping-bag' className={open ? 'open' : ''}>
-      <div className='shopping-bag-content'>
-        <div className='columns'>
-          <div className='column'>
-            <h4 className='has-text-weight-bold'>
-              {locale[lang].your_shopping_bag}
-            </h4>
-          </div>
-          <div className='column'>
-            <CLayer.ShoppingBagTotal />
-          </div>
-        </div>
-        <div className='shopping-bag-unavailable-message has-text-danger'>
-          {locale[lang].out_of_stock}
-        </div>
-        <CLayer.ShoppingBagItems
-          ItemsContainerTag='table'
-          itemTemplate={
-            <table id='shopping-bag-table' className='table is-fullwidth'>
-              <tr>
-                <td className='shopping-bag-col shopping-bag-col-image'>
-                  <CLayer.ShoppingBagItemImage />
-                </td>
-                <td className='shopping-bag-col shopping-bag-col-name'>
-                  <CLayer.ShoppingBagItemName />
-                </td>
-                <td className='shopping-bag-col shopping-bag-col-qty'>
-                  <CLayer.ShoppingBagItemQtyContainer />
-                </td>
-                <td className='shopping-bag-col shopping-bag-col-total'>
-                  <CLayer.ShoppingBagItemUnitAmount />
-                </td>
-                <td className='shopping-bag-col shopping-bag-col-remove'>
-                  <CLayer.ShoppingBagItemRemove />
-                </td>
-              </tr>
-            </table>
-          }
-        />
-        <div className='columns'>
-          <div className='column'>
-            <a
-              className='button is-fullwidth'
-              id='shopping-bag-close'
-              onClick={close}
-            >
-              {locale[lang].continue_shopping}
-            </a>
-          </div>
-          <div className='column'>
-            <CLayer.Checkout className={'button is-fullwidth is-success'} />
-          </div>
-        </div>
-      </div>
-    </div>
-  )
-}
+  // ...
+  <CLayer.ShoppingBagTotal />
+  // ...
+  <CLayer.ShoppingBagItems
+    ItemsContainerTag='table'
+    itemTemplate={
+      <table id='shopping-bag-table' className='table is-fullwidth'>
+        <tr>
+          <td className='shopping-bag-col shopping-bag-col-image'>
+            <CLayer.ShoppingBagItemImage />
+          </td>
+          <td className='shopping-bag-col shopping-bag-col-name'>
+            <CLayer.ShoppingBagItemName />
+          </td>
+          <td className='shopping-bag-col shopping-bag-col-qty'>
+            <CLayer.ShoppingBagItemQtyContainer />
+          </td>
+          <td className='shopping-bag-col shopping-bag-col-total'>
+            <CLayer.ShoppingBagItemUnitAmount />
+          </td>
+          <td className='shopping-bag-col shopping-bag-col-remove'>
+            <CLayer.ShoppingBagItemRemove />
+          </td>
+        </tr>
+      </table>
+    }
+  />
+  // ...
+  <CLayer.Checkout className={'button is-fullwidth is-success'} />
+  // ...
 ```
-
+[Layout.tsx](./src/components/Layout.tsx)
+```
+// ...
+<ShoppingBag
+  lang={language}
+  open={shoppingBagStatus}
+  close={setShoppingBagStatus}
+/>
+// ...
+```
+[Product.tsx](./src/components/Product.tsx)
+```
+// ...
+<CLayer.AddToBag
+  className={`add-to-bag button is-success is-fullwidth`}
+  id='add-to-bag'
+  AvailabilityMessageContainerId='availability-message'
+  text={locale[lang].add_to_bag}
+  onClick={onClick}
+/>
+// ...
+```
 Regardless of the style, the relevant elements are the following:
 
 - **#shopping-bag:** the shopping bag container
