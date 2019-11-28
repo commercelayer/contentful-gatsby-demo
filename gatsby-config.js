@@ -47,7 +47,7 @@ module.exports = {
         allExtensions: true
       }
     },
-    `gatsby-plugin-sass`// {
+    `gatsby-plugin-sass`, // {
     // 	resolve: 'gatsby-plugin-apollo',
     // 	options: {
     // 		uri: 'https://cdn.contentful.com/content/v1/spaces/blh476ckz2yh',
