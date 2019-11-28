@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useStaticQuery, graphql, Link } from 'gatsby'
+import favicon from '../images/favicon.png'
 
 const CountrySelector = () => {
+  const [showImg, setShowImg] = useState(false)
   const {
     allContentfulCountry: { edges },
     allFile: { edges: flags }
@@ -52,9 +54,21 @@ const CountrySelector = () => {
                       to={`/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`}
                     >
                       <img
+                        style={{
+                          display: !showImg ? 'block' : 'none',
+                          margin: '0 auto'
+                        }}
+                        src={favicon}
+                        alt='commerce layer'
+                      />
+                      <img
+                        style={{ display: showImg ? 'block' : 'none' }}
                         src={`${flag[0].node.publicURL}?fm=webp&q=75&w=556`}
                         alt={c.node.name}
                         className='image'
+                        onLoad={() => {
+                          setShowImg(true)
+                        }}
                       />
                     </Link>
                   </div>
