@@ -12,12 +12,15 @@ const Products = (props: ProductsProps) => {
   return (
     <div className='columns is-multiline is-mobile'>
       {data.map((p, i) => {
-        const srcImg = `https:${p.image.file.url}?fm=webp&q=67&w=556`
+        const srcImg = `https:${p.image.file.url}?fm=webp&q=65&w=556`
         const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
         return (
           <div key={i} className='column is-half-touch is-one-quarter-desktop'>
             <div className='product-listing box'>
-              <Link to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}>
+              <Link
+                arial-label={p.name}
+                to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}
+              >
                 <SimpleImg
                   sizes='556px'
                   height='200'

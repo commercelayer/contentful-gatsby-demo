@@ -2,6 +2,10 @@ body {
   padding-top: 3.25rem;
 }
 
+a {
+  color: #1b3d76;
+}
+
 #contentful-logo {
   width: 110px;
 }
