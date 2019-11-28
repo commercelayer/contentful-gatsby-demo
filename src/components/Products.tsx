@@ -16,7 +16,7 @@ const Products = (props: ProductsProps) => {
         return (
           <div key={i} className='column is-half-touch is-one-quarter-desktop'>
             <div className='product-listing box'>
-              <Link to={`/${shop}/${lang}/${categorySlug}/${productSlug}/`}>
+              <Link to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}>
                 <img src={srcImg} alt={p.name} />
               </Link>
               <h2 className='has-text-weight-bold is-hidden-mobile'>
