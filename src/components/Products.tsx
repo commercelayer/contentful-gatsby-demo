@@ -4,6 +4,7 @@ import * as CLayer from 'commercelayer-react'
 import { Link } from 'gatsby'
 import { usePriceLoading } from '../hooks/index'
 import loader from '../images/three-dots-loader.svg'
+import { SimpleImg } from 'react-simple-img'
 
 const Products = (props: ProductsProps) => {
   const { data, shop, lang, categorySlug } = props
@@ -17,7 +18,12 @@ const Products = (props: ProductsProps) => {
           <div key={i} className='column is-half-touch is-one-quarter-desktop'>
             <div className='product-listing box'>
               <Link to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}>
-                <img src={srcImg} alt={p.name} />
+                <SimpleImg
+                  sizes='556px'
+                  height='200'
+                  src={srcImg}
+                  alt={p.name}
+                />
               </Link>
               <h2 className='has-text-weight-bold is-hidden-mobile'>
                 {p.name}
