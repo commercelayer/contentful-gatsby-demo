@@ -47,8 +47,7 @@ module.exports = {
         allExtensions: true
       }
     },
-    `gatsby-plugin-sass`
-    // {
+    `gatsby-plugin-sass`// {
     // 	resolve: 'gatsby-plugin-apollo',
     // 	options: {
     // 		uri: 'https://cdn.contentful.com/content/v1/spaces/blh476ckz2yh',
@@ -72,6 +71,6 @@ module.exports = {
     // }
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
-    // `gatsby-plugin-offline`,
+    `gatsby-plugin-offline`
   ]
 }
