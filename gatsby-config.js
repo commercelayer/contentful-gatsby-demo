@@ -5,7 +5,7 @@ require('dotenv').config({
 module.exports = {
   siteMetadata: {
     title: `Contentful Gatsby Demo`,
-    description: ``,
+    description: `This is a static site e-commerce demo built with Contentful, Gatsby, and Commerce Layer`,
     author: `@commercelayer`
   },
   plugins: [
@@ -22,12 +22,12 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-default`,
-        short_name: `starter`,
+        name: `Contentful Gatsby Commerce`,
+        short_name: `commerce`,
         start_url: `/`,
         background_color: `#663399`,
         theme_color: `#663399`,
-        display: `minimal-ui`,
+        display: `standalone`,
         icon: `src/images/favicon.png` // This path is relative to the root of the site.
       }
     },
