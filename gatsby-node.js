@@ -27,7 +27,11 @@ exports.createPages = async ({ graphql, actions }) => {
 									name
 									contentful_id
 								}
-								contentful_id
+                contentful_id
+                products_it {
+                  name
+                  contentful_id
+                }
 							}
 						}
 					}
@@ -37,31 +41,35 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
 
   result.data.allContentfulCountry.edges.forEach(({ node }) => {
+    const code = node.code.toLowerCase()
+    const locale = node.node_locale.toLowerCase()
     // Catalogue page
+    const cataloguePath = `/${code}/${locale}/`
     createPage({
-      path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
+      path: cataloguePath,
       component: path.resolve(`./src/templates/CatalogPage.tsx`),
       context: {
         // Data passed to context is available in page queries as GraphQL variables.
-        slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/`,
+        slug: cataloguePath,
         language: node.node_locale,
         shipping: node.code,
         pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories'
       }
     })
     node.catalogue.categories.map(c => {
+      // Category page
       const categorySlug = c.name
         .trim()
         .toLowerCase()
         .replace(' & ', ' ')
         .replace(/\s/gm, '-')
-      // Category page
+      const categoryPath = `/${code}/${locale}/${categorySlug}`
       createPage({
-        path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
+        path: categoryPath,
         component: path.resolve(`./src/templates/CategoryPage.tsx`),
         context: {
           // Data passed to context is available in page queries as GraphQL variables.
-          slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}`,
+          slug: categoryPath,
           language: node.node_locale,
           shipping: node.code,
           categoryId: c.contentful_id,
@@ -69,15 +77,18 @@ exports.createPages = async ({ graphql, actions }) => {
           pageTitle: c.name.trim()
         }
       })
-      c.products.map(p => {
+      const products =
+        locale === 'it' && c.products_it ? c.products_it : c.products
+      products.map(p => {
         const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
+        const productPath = `/${code}/${locale}/${categorySlug}/${productSlug}`
         // Product
         createPage({
-          path: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
+          path: productPath,
           component: path.resolve(`./src/templates/ProductPage.tsx`),
           context: {
             // Data passed to context is available in page queries as GraphQL variables.
-            slug: `/${node.code.toLowerCase()}/${node.node_locale.toLowerCase()}/${categorySlug}/${productSlug}`,
+            slug: productPath,
             language: node.node_locale,
             shipping: node.code,
             categoryId: c.contentful_id,
