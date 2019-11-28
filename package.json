@@ -22,6 +22,7 @@
 		"gatsby-plugin-i18next": "^1.1.10",
 		"gatsby-plugin-manifest": "^2.2.28",
 		"gatsby-plugin-offline": "^3.0.21",
+		"gatsby-plugin-preconnect": "^1.0.5",
 		"gatsby-plugin-react-helmet": "^3.1.15",
 		"gatsby-plugin-sass": "^2.1.23",
 		"gatsby-plugin-sharp": "^2.3.0",
