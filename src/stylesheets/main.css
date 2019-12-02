@@ -6,6 +6,18 @@ a {
   color: #1b3d76;
 }
 
+.has-text-success {
+  color: #38a75efc !important;
+}
+
+.has-text-grey-light {
+  color: #929297 !important;
+}
+
+#add-to-bag {
+  color: #363636;
+}
+
 #contentful-logo {
   width: 110px;
 }
