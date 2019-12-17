@@ -8,7 +8,7 @@ import loader from '../images/three-dots-loader.svg'
 const Product = (props: ProductProps) => {
   const { lang, data, onClick } = props
   const loading = usePriceLoading('clayer-prices-ready')
-  const srcImg = `https://${data.image.file.url}?fm=webp&q=90`
+  const srcImg = `https://${data.image.file.url}?fm=png&q=50&w=556`
   const variants = data.variants.map(v => {
     return {
       code: v.code,
@@ -25,58 +25,56 @@ const Product = (props: ProductProps) => {
     }
   }
   return (
-    <div className='columns'>
-      <div className='column is-two-thirds'>
+    <div className="columns">
+      <div className="column is-two-thirds">
         <img src={srcImg} alt={data.name} />
       </div>
-      <div className='column'>
-        <h1 className='title'>{data.name}</h1>
-        <p className='description'>{data.description.description}</p>
-        <div className='large'>
+      <div className="column">
+        <h1 className="title">{data.name}</h1>
+        <p className="description">{data.description.description}</p>
+        <div className="large">
           <CLayer.Price
             skuCode={data.variants[0].code}
             AmountProps={amountProps}
           />
-          {loading ? <img src={loader} width='50' /> : null}
+          {loading ? <img src={loader} width="50" /> : null}
         </div>
 
-        <div className='select is-fullwidth variant-select-wrap'>
+        <div className="select is-fullwidth variant-select-wrap">
           <CLayer.VariantSelect
-            className='variant-select'
-            PriceContainerId='price'
-            AvailabilityMessageContainerId='availability-message'
-            AddToBagId='add-to-bag'
+            className="variant-select"
+            PriceContainerId="price"
+            AvailabilityMessageContainerId="availability-message"
+            AddToBagId="add-to-bag"
             promptText={locale[lang].select_size}
             skus={variants}
           />
         </div>
         <CLayer.AddToBag
           className={`add-to-bag button is-success is-fullwidth`}
-          id='add-to-bag'
-          AvailabilityMessageContainerId='availability-message'
+          id="add-to-bag"
+          AvailabilityMessageContainerId="availability-message"
           text={locale[lang].add_to_bag}
           onClick={onClick}
         />
 
-        <CLayer.AvailabilityMessageContainer id='availability-message' />
+        <CLayer.AvailabilityMessageContainer id="availability-message" />
 
         <CLayer.AvailabilityMessageAvailableTemplate
-          className='available-message has-text-success'
+          className="available-message has-text-success"
           availableTemplate={
-            <p className='has-text-success'>
-              <span className='is-capitalized'>
-                {locale[lang].available}
-              </span>{' '}
+            <p className="has-text-success">
+              <span className="is-capitalized">{locale[lang].available}</span>{' '}
               in{' '}
-              <CLayer.AvailabilityMessageMinDays className='available-message-min-days' />
+              <CLayer.AvailabilityMessageMinDays className="available-message-min-days" />
               -
-              <CLayer.AvailabilityMessageMaxDays className='available-message-max-days' />{' '}
+              <CLayer.AvailabilityMessageMaxDays className="available-message-max-days" />{' '}
               {locale[lang].days}
             </p>
           }
         />
         <CLayer.AvailabilityMessageUnavailableTemplate
-          className='unavailable-message has-text-danger'
+          className="unavailable-message has-text-danger"
           unavailableTemplate={<p>{locale[lang].not_available}</p>}
         />
       </div>

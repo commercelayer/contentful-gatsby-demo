@@ -4,19 +4,19 @@ import { CategoriesProps } from '../types/index'
 
 const Categories = ({ shop, lang, data }: CategoriesProps) => {
   return (
-    <div className='columns is-multiline'>
+    <div className="columns is-multiline">
       {data.map((c, i) => {
         const name = c.name
-        const src = `https:${c.image.file.url}?fm=webp&q=75&w=556`
+        const src = `https:${c.image.file.url}?fm=png&q=75&w=556`
         const slug = c.name
           .trim()
           .toLowerCase()
           .replace(' & ', '-')
           .replace(/ /gm, '-')
         return (
-          <div key={i} className='column is-half-tablet is-one-fifth-desktop'>
-            <h2 className='has-text-weight-bold'>{name}</h2>
-            <div className='category-listing box'>
+          <div key={i} className="column is-half-tablet is-one-fifth-desktop">
+            <h2 className="has-text-weight-bold">{name}</h2>
+            <div className="category-listing box">
               <Link
                 to={`/${shop}/${lang}/${slug}`}
                 state={{
