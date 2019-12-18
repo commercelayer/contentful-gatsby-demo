@@ -10,6 +10,7 @@ const path = require(`path`)
 
 exports.createPages = async ({ graphql, actions }) => {
   const buildByCountry = process.env.COUNTRY_BUILD
+  console.log('Build by Country: ', buildByCountry)
   const env = process.env.NODE_ENV
   const { createPage } = actions
   // Catalogue
