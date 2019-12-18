@@ -48,7 +48,7 @@ const CountrySelectorNav = ({ shipping, lang }) => {
           const href =
             env !== 'development'
               ? `${
-                  c.node.domain
+                  c.domain
                 }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
               : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
           const flag = flags.filter(
