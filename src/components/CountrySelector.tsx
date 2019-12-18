@@ -47,7 +47,7 @@ const CountrySelector = () => {
             {edges.reverse().map((c, i: number) => {
               const href =
                 env !== 'development'
-                  ? `${
+                  ? `://${
                       c.node.domain
                     }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
                   : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
