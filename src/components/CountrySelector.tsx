@@ -47,13 +47,14 @@ const CountrySelector = () => {
             {edges.reverse().map((c, i: number) => {
               const href =
                 env !== 'development'
-                  ? `://${
+                  ? `${
                       c.node.domain
                     }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
                   : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
               const flag = flags.filter(
                 f => f.node.name === c.node.code.toLowerCase()
               )
+              console.log('href :', href)
               return (
                 <div key={i} className="column">
                   <div className="box">
