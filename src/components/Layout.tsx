@@ -14,8 +14,9 @@ const Layout = ({
   setShoppingBagStatus,
   ...props
 }) => {
-  const { pageContext: { shipping, language } } = props
-  const marketId = shipping === 'US' ? '1510' : '1509'
+  const {
+    pageContext: { shipping, language, marketId }
+  } = props
   const sectionOpacity = shoppingBagStatus ? 'open' : ''
   return (
     <React.Fragment>
@@ -26,8 +27,8 @@ const Layout = ({
           onClick: setShoppingBagStatus
         }}
       />
-      <section id='main' className={`section ${sectionOpacity}`}>
-        <div className='container'>{children}</div>
+      <section id="main" className={`section ${sectionOpacity}`}>
+        <div className="container">{children}</div>
       </section>
       <Footer />
       <ShoppingBag
@@ -36,17 +37,17 @@ const Layout = ({
         close={setShoppingBagStatus}
       />
       <CLayer.Config
-        baseUrl='https://marvel.commercelayer.io'
-        clientId='709d8d691e2dd17a1a4ea7dd4658d811e4c1bac2bf50186c70ab52a904029435'
+        baseUrl="https://marvel.commercelayer.io"
+        clientId="709d8d691e2dd17a1a4ea7dd4658d811e4c1bac2bf50186c70ab52a904029435"
         marketId={marketId}
         countryCode={shipping ? shipping.toUpperCase() : 'US'}
         languageCode={
           language ? language.toLowerCase().replace('-us', '') : 'en'
         }
-        cartUrl='https://contentful-gatsby-demo.netlify.com/'
-        returnUrl='https://contentful-gatsby-demo.netlify.com/'
-        privacyUrl='https://contentful-gatsby-demo.netlify.com/'
-        termsUrl='https://contentful-gatsby-demo.netlify.com/'
+        cartUrl="https://contentful-gatsby-demo.netlify.com/"
+        returnUrl="https://contentful-gatsby-demo.netlify.com/"
+        privacyUrl="https://contentful-gatsby-demo.netlify.com/"
+        termsUrl="https://contentful-gatsby-demo.netlify.com/"
       />
     </React.Fragment>
   )

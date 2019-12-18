@@ -1,8 +1,9 @@
 import React from 'react'
-import { useStaticQuery, graphql, Link } from 'gatsby'
+import { useStaticQuery, graphql } from 'gatsby'
 import { SimpleImg } from 'react-simple-img'
 
 const CountrySelector = () => {
+  const env = process.env.NODE_ENV
   const {
     allContentfulCountry: { edges },
     allFile: { edges: flags }
@@ -15,6 +16,7 @@ const CountrySelector = () => {
             market_id
             defaultLocale
             code
+            domain
           }
         }
       }
@@ -43,15 +45,19 @@ const CountrySelector = () => {
           </p>
           <div className="columns is-mobile">
             {edges.reverse().map((c, i: number) => {
+              const href =
+                env !== 'development'
+                  ? `${
+                      c.node.domain
+                    }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
+                  : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
               const flag = flags.filter(
                 f => f.node.name === c.node.code.toLowerCase()
               )
               return (
                 <div key={i} className="column">
                   <div className="box">
-                    <Link
-                      to={`/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`}
-                    >
+                    <a title={c.node.name} href={href}>
                       <SimpleImg
                         src={`${flag[0].node.publicURL}?fm=png&q=50&w=556`}
                         alt={c.node.name}
@@ -59,7 +65,7 @@ const CountrySelector = () => {
                         sizes="556"
                         height="250"
                       />
-                    </Link>
+                    </a>
                   </div>
                 </div>
               )

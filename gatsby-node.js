@@ -9,38 +9,46 @@
 const path = require(`path`)
 
 exports.createPages = async ({ graphql, actions }) => {
+  const buildByCountry = process.env.COUNTRY_BUILD
+  const env = process.env.NODE_ENV
   const { createPage } = actions
   // Catalogue
   const result = await graphql(`
     query {
-			allContentfulCountry {
-				edges {
-					node {
-						node_locale
-						code
-						catalogue {
-							name
-							node_locale
-							categories {
-								name
-								products {
-									name
-									contentful_id
-								}
+      allContentfulCountry {
+        edges {
+          node {
+            node_locale
+            code
+            market_id
+            catalogue {
+              name
+              node_locale
+              categories {
+                name
+                products {
+                  name
+                  contentful_id
+                }
                 contentful_id
                 products_it {
                   name
                   contentful_id
                 }
-							}
-						}
-					}
-				}
-			}
-		}
+              }
+            }
+          }
+        }
+      }
+    }
   `)
-
-  result.data.allContentfulCountry.edges.forEach(({ node }) => {
+  const edges =
+    env !== 'production'
+      ? result.data.allContentfulCountry.edges
+      : result.data.allContentfulCountry.edges.filter(
+          ({ node }) => node.code === buildByCountry
+        )
+  edges.forEach(({ node }) => {
     const code = node.code.toLowerCase()
     const locale = node.node_locale.toLowerCase()
     // Catalogue page
@@ -53,7 +61,8 @@ exports.createPages = async ({ graphql, actions }) => {
         slug: cataloguePath,
         language: node.node_locale,
         shipping: node.code,
-        pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories'
+        pageTitle: node.node_locale === 'it' ? 'Categorie' : 'Categories',
+        marketId: node.market_id
       }
     })
     node.catalogue.categories.map(c => {
@@ -74,13 +83,17 @@ exports.createPages = async ({ graphql, actions }) => {
           shipping: node.code,
           categoryId: c.contentful_id,
           categorySlug,
-          pageTitle: c.name.trim()
+          pageTitle: c.name.trim(),
+          marketId: node.market_id
         }
       })
       const products =
         locale === 'it' && c.products_it ? c.products_it : c.products
       products.map(p => {
-        const productSlug = p.name.trim().toLowerCase().replace(/\s/gm, '-')
+        const productSlug = p.name
+          .trim()
+          .toLowerCase()
+          .replace(/\s/gm, '-')
         const productPath = `/${code}/${locale}/${categorySlug}/${productSlug}`
         // Product
         createPage({
@@ -95,7 +108,8 @@ exports.createPages = async ({ graphql, actions }) => {
             categorySlug,
             categoryName: c.name.trim(),
             productId: p.contentful_id,
-            pageTitle: p.name.trim()
+            pageTitle: p.name.trim(),
+            marketId: node.market_id
           }
         })
       })
