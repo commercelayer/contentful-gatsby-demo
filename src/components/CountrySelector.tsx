@@ -54,7 +54,6 @@ const CountrySelector = () => {
               const flag = flags.filter(
                 f => f.node.name === c.node.code.toLowerCase()
               )
-              console.log('href :', href)
               return (
                 <div key={i} className="column">
                   <div className="box">

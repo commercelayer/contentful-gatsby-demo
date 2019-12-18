@@ -14,6 +14,7 @@ const CountrySelectorNav = ({ shipping, lang }) => {
             defaultLocale
             code
             node_locale
+            domain
           }
         }
       }
@@ -49,8 +50,8 @@ const CountrySelectorNav = ({ shipping, lang }) => {
             env !== 'development'
               ? `${
                   c.domain
-                }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
-              : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
+                }/${c.code.toLowerCase()}/${c.defaultLocale.toLowerCase()}`
+              : `/${c.code.toLowerCase()}/${c.defaultLocale.toLowerCase()}`
           const flag = flags.filter(
             ({ node }) => node.name === c.code.toLowerCase()
           )
