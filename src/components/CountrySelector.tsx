@@ -59,7 +59,7 @@ const CountrySelector = () => {
                   <div className="box">
                     <a title={c.node.name} href={href}>
                       <SimpleImg
-                        src={`${flag[0].node.publicURL}?fm=png&q=50&w=556`}
+                        src={`${flag[0].node.publicURL}?fm=jpg&q=75`}
                         alt={c.node.name}
                         className="image"
                         sizes="556"

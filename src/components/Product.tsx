@@ -8,7 +8,7 @@ import loader from '../images/three-dots-loader.svg'
 const Product = (props: ProductProps) => {
   const { lang, data, onClick } = props
   const loading = usePriceLoading('clayer-prices-ready')
-  const srcImg = `https://${data.image.file.url}?fm=png&q=50&w=556`
+  const srcImg = `https://${data.image.file.url}?fm=jpg&q=75`
   const variants = data.variants.map(v => {
     return {
       code: v.code,
