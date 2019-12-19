@@ -12,7 +12,7 @@ const Products = (props: ProductsProps) => {
   return (
     <div className="columns is-multiline is-mobile">
       {data.map((p, i) => {
-        const srcImg = `https:${p.image.file.url}?fm=jpg&q=75`
+        const srcImg = `https:${p.image.file.url}?fm=jpg&q=70`
         const productSlug = p.name
           .trim()
           .toLowerCase()

@@ -5,7 +5,6 @@ import { SimpleImg } from 'react-simple-img'
 const CountrySelector = () => {
   const env = process.env.NODE_ENV
   const countryBuild = process.env.GATSBY_COUNTRY_BUILD
-  console.log('countryBuild :', countryBuild)
   const {
     allContentfulCountry: { edges }
   } = useStaticQuery(graphql`
@@ -28,9 +27,15 @@ const CountrySelector = () => {
       }
     }
   `)
-  const countries = edges.filter((c, i, a) => {
+  const countries = edges.filter(c => {
+    console.log(
+      'c :',
+      c.node.defaultLocale.toLowerCase(),
+      c.node.code.toLowerCase(),
+      countryBuild.toLowerCase()
+    )
     return (
-      c.node.defaultLocale.toLowerCase().search(c.node.code.toLowerCase()) !==
+      c.node.defaultLocale.toLowerCase().search(countryBuild.toLowerCase()) !==
       -1
     )
   })
@@ -47,9 +52,8 @@ const CountrySelector = () => {
             started, choose a shipping country below. Each country has a
             dedicated catalog, price list, and inventory model.
           </p>
-          <div className="columns is-mobile">
+          <div className="columns is-multiline">
             {countries.map((c, i: number) => {
-              console.log('c :', c)
               const href =
                 env !== 'development'
                   ? `${
@@ -57,11 +61,11 @@ const CountrySelector = () => {
                     }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
                   : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
               return (
-                <div key={i} className="column">
+                <div key={i} className="column is-one-quarter">
                   <div className="box">
                     <a title={c.node.name} href={href}>
                       <SimpleImg
-                        src={`${c.node.image.file.url}?fm=jpg&q=75`}
+                        src={`${c.node.image.file.url}?fm=jpg&q=70`}
                         alt={c.node.name}
                         className="image"
                         sizes="556"

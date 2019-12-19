@@ -9,8 +9,10 @@
 const path = require(`path`)
 
 exports.createPages = async ({ graphql, actions }) => {
-  const buildByCountry = process.env.GATSBY_COUNTRY_BUILD
-  console.log('Build by Country: ', buildByCountry)
+  const countryBuild = process.env.GATSBY_COUNTRY_BUILD
+  const languagesBuild = process.env.GATSBY_COUNTRY_LANGUAGES
+  console.log('Build by Country: ', countryBuild)
+  console.log('Languages: ', languagesBuild)
   const env = process.env.NODE_ENV
   const { createPage } = actions
   // Catalogue
@@ -45,15 +47,22 @@ exports.createPages = async ({ graphql, actions }) => {
   `)
   const edges =
     env !== 'production'
-      ? result.data.allContentfulCountry.edges
-      : result.data.allContentfulCountry.edges.filter(
-          ({ node }) => node.code === buildByCountry
-        )
+      ? result.data.allContentfulCountry.edges.filter(({ node }) => {
+          return languagesBuild.search(node.node_locale) !== -1
+        })
+      : result.data.allContentfulCountry.edges.filter(({ node }) => {
+          return (
+            node.code === countryBuild &&
+            languagesBuild.search(node.node_locale) !== -1
+          )
+        })
   edges.forEach(({ node }) => {
     const code = node.code.toLowerCase()
     const locale = node.node_locale.toLowerCase()
+    if (languagesBuild.toLocaleLowerCase().search(locale) === -1) return null
     // Catalogue page
     const cataloguePath = `/${code}/${locale}/`
+    console.log('cataloguePath :', cataloguePath)
     createPage({
       path: cataloguePath,
       component: path.resolve(`./src/templates/CatalogPage.tsx`),
@@ -74,6 +83,7 @@ exports.createPages = async ({ graphql, actions }) => {
         .replace(' & ', ' ')
         .replace(/\s/gm, '-')
       const categoryPath = `/${code}/${locale}/${categorySlug}`
+      console.log('categoryPath :', categoryPath)
       createPage({
         path: categoryPath,
         component: path.resolve(`./src/templates/CategoryPage.tsx`),
@@ -96,6 +106,7 @@ exports.createPages = async ({ graphql, actions }) => {
           .toLowerCase()
           .replace(/\s/gm, '-')
         const productPath = `/${code}/${locale}/${categorySlug}/${productSlug}`
+        console.log('productPath :', productPath)
         // Product
         createPage({
           path: productPath,

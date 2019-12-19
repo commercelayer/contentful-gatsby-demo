@@ -4,6 +4,7 @@ import locale from '../locale/locale.json'
 import _ from 'lodash'
 
 const LanguageSelector = ({ shipping, lang }) => {
+  const languagesBuild = process.env.GATSBY_COUNTRY_LANGUAGES
   const { allContentfulCountry } = useStaticQuery(graphql`
     {
       allContentfulCountry {
@@ -24,9 +25,15 @@ const LanguageSelector = ({ shipping, lang }) => {
       }
     }
   `)
-  const countries = allContentfulCountry.edges.filter(
-    ({ node }) => node.defaultLocale === lang
-  )
+  // const countries = allContentfulCountry.edges.filter(
+  //   ({ node }) => node.defaultLocale === lang
+  // )
+  const countries = allContentfulCountry.edges.filter(({ node }) => {
+    return (
+      languagesBuild.search(node.defaultLocale.toLowerCase()) !== -1 &&
+      languagesBuild.toLocaleLowerCase().search(node.code.toLowerCase()) !== -1
+    )
+  })
   // const selectedflag = allContentfulCountry.edges.filter(
   //   ({ node }) =>
   //     node.defaultLocale === lang &&
@@ -47,7 +54,6 @@ const LanguageSelector = ({ shipping, lang }) => {
       </a>
       <div className="navbar-dropdown">
         {countries.map(({ node: c }, i) => {
-          console.log('c :', c)
           return (
             <Link
               key={i}
