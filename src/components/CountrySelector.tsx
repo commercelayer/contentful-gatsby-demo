@@ -4,12 +4,13 @@ import { SimpleImg } from 'react-simple-img'
 
 const CountrySelector = () => {
   const env = process.env.NODE_ENV
+  const countryBuild = process.env.GATSBY_COUNTRY_BUILD
+  console.log('countryBuild :', countryBuild)
   const {
-    allContentfulCountry: { edges },
-    allFile: { edges: flags }
+    allContentfulCountry: { edges }
   } = useStaticQuery(graphql`
     {
-      allContentfulCountry(limit: 2) {
+      allContentfulCountry {
         edges {
           node {
             name
@@ -17,19 +18,22 @@ const CountrySelector = () => {
             defaultLocale
             code
             domain
-          }
-        }
-      }
-      allFile(filter: { publicURL: { regex: "/(it-|us-)/" } }) {
-        edges {
-          node {
-            publicURL
-            name
+            image {
+              file {
+                url
+              }
+            }
           }
         }
       }
     }
   `)
+  const countries = edges.filter((c, i, a) => {
+    return (
+      c.node.defaultLocale.toLowerCase().search(c.node.code.toLowerCase()) !==
+      -1
+    )
+  })
   return (
     <div id="country-selector">
       <div className="columns">
@@ -44,22 +48,20 @@ const CountrySelector = () => {
             dedicated catalog, price list, and inventory model.
           </p>
           <div className="columns is-mobile">
-            {edges.reverse().map((c, i: number) => {
+            {countries.map((c, i: number) => {
+              console.log('c :', c)
               const href =
                 env !== 'development'
                   ? `${
                       c.node.domain
                     }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
                   : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
-              const flag = flags.filter(
-                f => f.node.name === c.node.code.toLowerCase()
-              )
               return (
                 <div key={i} className="column">
                   <div className="box">
                     <a title={c.node.name} href={href}>
                       <SimpleImg
-                        src={`${flag[0].node.publicURL}?fm=jpg&q=75`}
+                        src={`${c.node.image.file.url}?fm=jpg&q=75`}
                         alt={c.node.name}
                         className="image"
                         sizes="556"
