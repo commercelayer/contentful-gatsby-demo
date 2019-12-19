@@ -5,11 +5,12 @@ import { SimpleImg } from 'react-simple-img'
 const CountrySelector = () => {
   const env = process.env.NODE_ENV
   const countryBuild = process.env.GATSBY_COUNTRY_BUILD
+  const languagesBuild = process.env.GATSBY_COUNTRY_LANGUAGES
   const {
     allContentfulCountry: { edges }
   } = useStaticQuery(graphql`
     {
-      allContentfulCountry {
+      allContentfulCountry(limit: 16) {
         edges {
           node {
             name
@@ -35,9 +36,14 @@ const CountrySelector = () => {
       countryBuild.toLowerCase()
     )
     return (
-      c.node.defaultLocale.toLowerCase().search(countryBuild.toLowerCase()) !==
-      -1
+      languagesBuild
+        .toLowerCase()
+        .search(c.node.defaultLocale.toLowerCase()) !== -1
     )
+    // return (
+    //   c.node.code.toLowerCase().search(countryBuild.toLowerCase()) !==
+    //   -1
+    // )
   })
   return (
     <div id="country-selector">
