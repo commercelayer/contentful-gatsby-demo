@@ -47,7 +47,7 @@ const CountrySelector = () => {
           <div className="columns is-multiline">
             {edges.map((c, i: number) => {
               const href =
-                env === 'production'
+                env !== 'production'
                   ? `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
                   : `${c.node.domain}`
               return (
