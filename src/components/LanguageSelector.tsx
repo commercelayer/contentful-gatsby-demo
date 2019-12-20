@@ -34,15 +34,9 @@ const LanguageSelector = ({ shipping, lang }) => {
       languagesBuild.toLocaleLowerCase().search(node.code.toLowerCase()) !== -1
     )
   })
-  // const selectedflag = allContentfulCountry.edges.filter(
-  //   ({ node }) =>
-  //     node.defaultLocale === lang &&
-  //     node.code.toLowerCase() === lang.replace('en-', '').toLowerCase()
-  // )
   const dropdownIcon = countries.length === 0 ? '' : 'has-dropdown is-hoverable'
   const disableText =
     countries.length === 0 ? 'has-text-grey dropdown-disabled' : ''
-  console.log('countries.length :', countries)
   return (
     <div className={`navbar-item ${dropdownIcon}`}>
       <a className={`navbar-link is-capitalized ${disableText}`}>

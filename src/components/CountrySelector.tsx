@@ -4,8 +4,6 @@ import { SimpleImg } from 'react-simple-img'
 
 const CountrySelector = () => {
   const env = process.env.NODE_ENV
-  const countryBuild = process.env.GATSBY_COUNTRY_BUILD
-  const languagesBuild = process.env.GATSBY_COUNTRY_LANGUAGES
   const {
     allContentfulCountry: { edges }
   } = useStaticQuery(graphql`
