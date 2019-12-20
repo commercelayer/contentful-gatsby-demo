@@ -116,3 +116,10 @@ a {
 .description {
   margin-bottom: 1.5rem;
 }
+.column.is-one-quarter > .box {
+  padding: 0.45rem;
+}
+
+.dropdown-disabled::after {
+  display: none !important;
+}

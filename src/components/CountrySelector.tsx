@@ -10,7 +10,10 @@ const CountrySelector = () => {
     allContentfulCountry: { edges }
   } = useStaticQuery(graphql`
     {
-      allContentfulCountry(limit: 16) {
+      allContentfulCountry(
+        sort: { fields: name }
+        filter: { node_locale: { eq: "en-US" } }
+      ) {
         edges {
           node {
             name
@@ -28,23 +31,6 @@ const CountrySelector = () => {
       }
     }
   `)
-  const countries = edges.filter(c => {
-    console.log(
-      'c :',
-      c.node.defaultLocale.toLowerCase(),
-      c.node.code.toLowerCase(),
-      countryBuild.toLowerCase()
-    )
-    return (
-      languagesBuild
-        .toLowerCase()
-        .search(c.node.defaultLocale.toLowerCase()) !== -1
-    )
-    // return (
-    //   c.node.code.toLowerCase().search(countryBuild.toLowerCase()) !==
-    //   -1
-    // )
-  })
   return (
     <div id="country-selector">
       <div className="columns">
@@ -59,13 +45,11 @@ const CountrySelector = () => {
             dedicated catalog, price list, and inventory model.
           </p>
           <div className="columns is-multiline">
-            {countries.map((c, i: number) => {
+            {edges.map((c, i: number) => {
               const href =
-                env !== 'development'
-                  ? `${
-                      c.node.domain
-                    }/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
-                  : `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
+                env !== 'production'
+                  ? `/${c.node.code.toLowerCase()}/${c.node.defaultLocale.toLowerCase()}`
+                  : `${c.domain}`
               return (
                 <div key={i} className="column is-one-quarter">
                   <div className="box">

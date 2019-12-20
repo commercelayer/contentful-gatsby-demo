@@ -39,9 +39,13 @@ const LanguageSelector = ({ shipping, lang }) => {
   //     node.defaultLocale === lang &&
   //     node.code.toLowerCase() === lang.replace('en-', '').toLowerCase()
   // )
+  const dropdownIcon = countries.length === 0 ? '' : 'has-dropdown is-hoverable'
+  const disableText =
+    countries.length === 0 ? 'has-text-grey dropdown-disabled' : ''
+  console.log('countries.length :', countries)
   return (
-    <div className="navbar-item has-dropdown is-hoverable">
-      <a className="navbar-link is-capitalized">
+    <div className={`navbar-item ${dropdownIcon}`}>
+      <a className={`navbar-link is-capitalized ${disableText}`}>
         {locale[lang.replace('-us', '-US')].language}: &nbsp;{' '}
         {
           locale[lang.replace('-us', '-US')].languages[
@@ -63,8 +67,8 @@ const LanguageSelector = ({ shipping, lang }) => {
                 .replace('us', 'en-us')}/`}
               state={{ marketId: c.market_id }}
             >
-              <img key={i} src={c.image.file.url} width="20" />
-              &nbsp;
+              {/* <img key={i} src={c.image.file.url} width="20" /> */}
+              {/* &nbsp; */}
               {
                 locale[lang.replace('-us', '-US')].languages[
                   c.code.toLowerCase().replace('us', 'en-US')
