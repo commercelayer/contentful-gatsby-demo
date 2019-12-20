@@ -34,7 +34,23 @@ exports.createPages = async ({ graphql, actions }) => {
                   contentful_id
                 }
                 contentful_id
+                products_ca {
+                  name
+                  contentful_id
+                }
+                products_cn {
+                  name
+                  contentful_id
+                }
+                products_gb {
+                  name
+                  contentful_id
+                }
                 products_it {
+                  name
+                  contentful_id
+                }
+                products_jp {
                   name
                   contentful_id
                 }
@@ -98,8 +114,9 @@ exports.createPages = async ({ graphql, actions }) => {
           marketId: node.market_id
         }
       })
-      const products =
-        locale === 'it' && c.products_it ? c.products_it : c.products
+      const products = c[`products_${code}`]
+        ? c[`products_${code}`]
+        : c.products
       products.map(p => {
         const productSlug = p.name
           .trim()
