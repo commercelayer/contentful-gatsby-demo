@@ -7,9 +7,7 @@ import ShoppingBagPreview from './ShoppingBagPreview'
 
 const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
   const ship = shipping?.toLowerCase()
-  const main =
-    typeof window !== 'undefined' ? window.origin.replace(`-${ship}`, '') : '/'
-  console.log('main :', main)
+  const main = 'https://contentful-gatsby-demo.netlify.com/'
   return (
     <nav className="navbar is-dark is-fixed-top">
       <div className="container">
