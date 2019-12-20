@@ -15,6 +15,7 @@ exports.createPages = async ({ graphql, actions }) => {
   console.log('Languages: ', languagesBuild)
   const env = process.env.NODE_ENV
   const { createPage } = actions
+  if (countryBuild === 'none') return null
   // Catalogue
   const result = await graphql(`
     query {
