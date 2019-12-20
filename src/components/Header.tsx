@@ -9,17 +9,18 @@ const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
   const ship = shipping?.toLowerCase()
   const main =
     typeof window !== 'undefined' ? window.origin.replace(`-${ship}`, '') : '/'
+  console.log('main :', main)
   return (
     <nav className="navbar is-dark is-fixed-top">
       <div className="container">
         <div className="navbar-brand">
-          <Link to={main} className="navbar-item">
+          <a href={main} className="navbar-item">
             <img
               src={cgcLogo}
               alt="Contentful + Gatsby + Commerce Layer"
               width="122"
             />
-          </Link>
+          </a>
         </div>
         <div className="navbar-menu">
           <div className="navbar-end">
