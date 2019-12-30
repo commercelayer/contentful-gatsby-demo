@@ -8,6 +8,7 @@ import { SimpleImg } from 'react-simple-img'
 
 const Products = (props: ProductsProps) => {
   const { data, shop, lang, categorySlug } = props
+  const env = process.env.NODE_ENV
   const loading = usePriceLoading('clayer-prices-ready')
   return (
     <div className="columns is-multiline is-mobile">
@@ -17,13 +18,14 @@ const Products = (props: ProductsProps) => {
           .trim()
           .toLowerCase()
           .replace(/\s/gm, '-')
+        const productLink =
+          env !== 'production'
+            ? `/${shop}/${lang}/${categorySlug}/${productSlug}`
+            : `/${lang}/${categorySlug}/${productSlug}`
         return (
           <div key={i} className="column is-half-touch is-one-quarter-desktop">
             <div className="product-listing box">
-              <Link
-                arial-label={p.name}
-                to={`/${shop}/${lang}/${categorySlug}/${productSlug}`}
-              >
+              <Link arial-label={p.name} to={productLink}>
                 <SimpleImg
                   sizes="556px"
                   height="200"
