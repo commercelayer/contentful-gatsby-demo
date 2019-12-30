@@ -4,6 +4,7 @@ import locale from '../locale/locale.json'
 import _ from 'lodash'
 
 const LanguageSelector = ({ shipping, lang }) => {
+  const env = process.env.NODE_ENV
   const languagesBuild = process.env.GATSBY_COUNTRY_LANGUAGES
   const { allContentfulCountry } = useStaticQuery(graphql`
     {
@@ -52,6 +53,12 @@ const LanguageSelector = ({ shipping, lang }) => {
       </a>
       <div className="navbar-dropdown">
         {countries.map(({ node: c }, i) => {
+          const langLink =
+            env !== 'production'
+              ? `/${shipping.toLowerCase()}/${c.code
+                  .toLowerCase()
+                  .replace('us', 'en-us')}/`
+              : `/${c.code.toLowerCase().replace('us', 'en-us')}/`
           return (
             <Link
               key={i}
