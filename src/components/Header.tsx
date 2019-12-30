@@ -1,12 +1,16 @@
-import { Link } from 'gatsby'
-import React from 'react'
+import React, { useState } from 'react'
 import cgcLogo from '../images/CGC-white.svg'
 import CountrySelectorNav from './CountrySelectorNav'
 import LanguageSelector from './LanguageSelector'
 import ShoppingBagPreview from './ShoppingBagPreview'
 
 const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
-  const main = 'https://contentful-gatsby-demo.netlify.com/'
+  const env = process.env.NODE_ENV
+  const [isActive, setActiveBurger] = useState(false)
+  const active = isActive ? 'is-active' : ''
+  const main =
+    env !== 'production' ? '/' : 'https://contentful-gatsby-demo.netlify.com/'
+  const handleActive = () => setActiveBurger(!isActive)
   return (
     <nav className="navbar is-dark is-fixed-top">
       <div className="container">
@@ -18,8 +22,21 @@ const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
               width="122"
             />
           </a>
+          {shipping && (
+            <a
+              role="button"
+              className={`navbar-burger ${active}`}
+              aria-label="menu"
+              aria-expanded="false"
+              onClick={handleActive}
+            >
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+              <span aria-hidden="true"></span>
+            </a>
+          )}
         </div>
-        <div className="navbar-menu">
+        <div className={`navbar-menu ${active}`}>
           <div className="navbar-end">
             {shipping && <CountrySelectorNav shipping={shipping} lang={lang} />}
             {shipping && <LanguageSelector shipping={shipping} lang={lang} />}
