@@ -6,7 +6,6 @@ import LanguageSelector from './LanguageSelector'
 import ShoppingBagPreview from './ShoppingBagPreview'
 
 const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
-  const ship = shipping?.toLowerCase()
   const main = 'https://contentful-gatsby-demo.netlify.com/'
   return (
     <nav className="navbar is-dark is-fixed-top">

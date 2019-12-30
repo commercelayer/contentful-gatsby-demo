@@ -78,7 +78,8 @@ exports.createPages = async ({ graphql, actions }) => {
     const locale = node.node_locale.toLowerCase()
     if (languagesBuild.toLocaleLowerCase().search(locale) === -1) return null
     // Catalogue page
-    const cataloguePath = `/${code}/${locale}/`
+    const cataloguePath =
+      env !== 'production' ? `/${code}/${locale}/` : `/${locale}/`
     console.log('cataloguePath :', cataloguePath)
     createPage({
       path: cataloguePath,
@@ -99,7 +100,10 @@ exports.createPages = async ({ graphql, actions }) => {
         .toLowerCase()
         .replace(' & ', ' ')
         .replace(/\s/gm, '-')
-      const categoryPath = `/${code}/${locale}/${categorySlug}`
+      const categoryPath =
+        env !== 'production'
+          ? `/${code}/${locale}/${categorySlug}`
+          : `/${locale}/${categorySlug}`
       console.log('categoryPath :', categoryPath)
       createPage({
         path: categoryPath,
@@ -123,7 +127,10 @@ exports.createPages = async ({ graphql, actions }) => {
           .trim()
           .toLowerCase()
           .replace(/\s/gm, '-')
-        const productPath = `/${code}/${locale}/${categorySlug}/${productSlug}`
+        const productPath =
+          env !== 'production'
+            ? `/${code}/${locale}/${categorySlug}/${productSlug}`
+            : `/${locale}/${categorySlug}/${productSlug}`
         console.log('productPath :', productPath)
         // Product
         createPage({

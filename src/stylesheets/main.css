@@ -123,3 +123,7 @@ a {
 .dropdown-disabled::after {
   display: none !important;
 }
+
+.navbar {
+  min-height: 56px !important;
+}
