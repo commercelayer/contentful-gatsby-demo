@@ -4,13 +4,18 @@ import CountrySelectorNav from './CountrySelectorNav'
 import LanguageSelector from './LanguageSelector'
 import ShoppingBagPreview from './ShoppingBagPreview'
 
-const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
+const Header = ({ shipping, lang, shoppingBagPreviewProps: { onClick } }) => {
+  // const { onClick } = shoppingBagPreviewProps
   const env = process.env.NODE_ENV
   const [isActive, setActiveBurger] = useState(false)
   const active = isActive ? 'is-active' : ''
   const main =
     env !== 'production' ? '/' : 'https://contentful-gatsby-demo.netlify.com/'
   const handleActive = () => setActiveBurger(!isActive)
+  const handleShoppingBag = () => {
+    onClick()
+    handleActive()
+  }
   return (
     <nav className="navbar is-dark is-fixed-top">
       <div className="container">
@@ -40,7 +45,7 @@ const Header = ({ shipping, lang, shoppingBagPreviewProps }) => {
           <div className="navbar-end">
             {shipping && <CountrySelectorNav shipping={shipping} lang={lang} />}
             {shipping && <LanguageSelector shipping={shipping} lang={lang} />}
-            {shipping && <ShoppingBagPreview {...shoppingBagPreviewProps} />}
+            {shipping && <ShoppingBagPreview onClick={handleShoppingBag} />}
           </div>
         </div>
       </div>
