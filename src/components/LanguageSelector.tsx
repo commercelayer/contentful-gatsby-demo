@@ -63,9 +63,7 @@ const LanguageSelector = ({ shipping, lang }) => {
             <Link
               key={i}
               className="navbar-item is-capitalized"
-              to={`/${shipping.toLowerCase()}/${c.code
-                .toLowerCase()
-                .replace('us', 'en-us')}/`}
+              to={langLink}
               state={{ marketId: c.market_id }}
             >
               {/* <img key={i} src={c.image.file.url} width="20" /> */}
