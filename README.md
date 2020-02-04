@@ -107,7 +107,6 @@ Then create the `~/.commercelayer-cli.yml` file on your local environment and st
 commercelayer:
   site: <your-base-endpoint>
   client_id: <your-client-id>
-  client_secret: <your-client-secret>
 contentful:
   space: <your-space-id>
   access_token: <your-content-management-access-token>
@@ -151,7 +150,7 @@ CONTENTFUL_SPACE_ID=YOUR_SPACE_ID
 CONTENTFUL_DELIVERY_ACCESS_TOKEN=YOUR_ACCESS_TOKEN
 ```
 
-Add the following code to `gatsby-config.js`:
+Add the following code to [`gatsby-config.js`](./gatsby-config.js):
 
 ```
 {
@@ -171,7 +170,7 @@ What we need now is to generate a page for each catalogue, category and product,
 
 Let's use this [Gatsby tutorial](https://www.gatsbyjs.org/tutorial/part-seven/) on how to programmatically create pages from data, as a starter. The custom generator will iterate over the imported data and create all the required pages. 
 
-Add the following code to `gatsby-node.js`:
+Add the following code to [`gatsby-node.js`](./gatsby-node.js):
 
 ```
 // Read all data from Contentful
@@ -355,6 +354,7 @@ export const query = graphql`
   }
 `
 ```
+
 Follow the example above to create the catalogue and product page templates. Then run the following command get the first version of the site:
 
 ```
@@ -383,14 +383,15 @@ To start selling, we need a Commerce Layer sales channel application. Just get t
 
 ### Install the Gatsby Plugin
 
-We made a [gatsby plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-commercelayer) of course! Let's add it to our project, using npm:
+Let's use our [official plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-commercelayer) to integrate Commerce Layer API into the Gatsby site. Add it to your project, using npm:
 
 ```
 $ npm install gatsby-plugin-commercelayer
 ```
 
+Add the following code to [`gatsby-config.js`](./gatsby-config.js):
+
 ```
-// gatsby-config.js
 modules.export = {
 	// ...
   plugins: [
@@ -401,13 +402,13 @@ modules.export = {
 
 ```
 
-Add the configuration about Commerce Layer to [`Layout.tsx`](./src/components/)
+Add the configuration info of your Commerce Layer sales channel application (client ID, base endpoint, the ID of the market you want to put in scope, etc.) to [`Layout.tsx`](./src/components/Layout.tsx)
 
 ```
   // ...
   <CLayer.Config
     baseUrl='https://yourdomain.commercelayer.io'
-    clientId='YOUR_CLIENT_ID'
+    clientId='your-cliend-if'
     marketId={marketId}
     countryCode={shipping ? shipping.toUpperCase() : 'US'}
     languageCode={
@@ -423,10 +424,9 @@ Add the configuration about Commerce Layer to [`Layout.tsx`](./src/components/)
 
 ### Add prices
 
-To make the prices appear, add the following snippets to the products and product templates. The library will look into the page and populate the price amounts for each element that contains a *skuCode* property:
+To make the prices appear, add the following snippets to [Product.tsx](./src/components/Product.tsx) and [Products.tsx](./src/components/Products.tsx). The JS library will look into the page and populate the price amounts for each element that contains a `skuCode` property:
 
 ```
-// ./src/components/Product.tsx
 import * as CLayer from 'commercelayer-react'
 
 // Your React Component
@@ -439,7 +439,7 @@ return (
 
 ### Add availability messages
 
-Our libray gives us the possibility to check the availability with few simple components that now we have to add them in [Product.tsx](./src/components/Product.tsx)
+What we need now is to check the availability of the selected product on Commerce Layer and activate the purchasing functions. When a variant option is selected, the `.available-message` will be populated with the variant's availability information. When it goes out of stock the `.unavailable-message` will be shown. To do that, add these few simple components to [Product.tsx](./src/components/Product.tsx)
 ```
 // ...
 
@@ -470,10 +470,11 @@ return (
 
 ### Add a shopping bag
 
-The final step is to add the required markup to the DOM to enable the shopping bag and the shopping bag preview components:
+The final step is to add the required markup to the DOM to enable the shopping bag and the shopping bag preview. To do that, add the following code to [ShoppingBagPreview.tsx](./src/components/ShoppingBagPreview.tsx), [ShoppingBag.tsx](./src/components/ShoppingBag.tsx), [Layout.tsx](./src/components/Layout.tsx), and [Product.tsx](./src/components/Product.tsx):
 
-[ShoppingBagPreview.tsx](./src/components/ShoppingBagPreview.tsx)
 ```
+// ShoppingBagPreview.tsx
+
 const ShoppingBagPreview = ({ onClick }) => {
   return (
     <a className='navbar-item' id='shopping-bag-toggle' onClick={onClick}>
@@ -490,41 +491,45 @@ const ShoppingBagPreview = ({ onClick }) => {
   )
 }
 ```
-[ShoppingBag.tsx](./src/components/ShoppingBag.tsx)
+
 ```
-  // ...
-  <CLayer.ShoppingBagTotal />
-  // ...
-  <CLayer.ShoppingBagItems
-    ItemsContainerTag='table'
-    itemTemplate={
-      <table id='shopping-bag-table' className='table is-fullwidth'>
-        <tr>
-          <td className='shopping-bag-col shopping-bag-col-image'>
-            <CLayer.ShoppingBagItemImage />
-          </td>
-          <td className='shopping-bag-col shopping-bag-col-name'>
-            <CLayer.ShoppingBagItemName />
-          </td>
-          <td className='shopping-bag-col shopping-bag-col-qty'>
-            <CLayer.ShoppingBagItemQtyContainer />
-          </td>
-          <td className='shopping-bag-col shopping-bag-col-total'>
-            <CLayer.ShoppingBagItemUnitAmount />
-          </td>
-          <td className='shopping-bag-col shopping-bag-col-remove'>
-            <CLayer.ShoppingBagItemRemove />
-          </td>
-        </tr>
-      </table>
-    }
-  />
-  // ...
-  <CLayer.Checkout className={'button is-fullwidth is-success'} />
-  // ...
+// ShoppingBag.tsx
+
+// ...
+<CLayer.ShoppingBagTotal />
+// ...
+<CLayer.ShoppingBagItems
+  ItemsContainerTag='table'
+  itemTemplate={
+    <table id='shopping-bag-table' className='table is-fullwidth'>
+      <tr>
+        <td className='shopping-bag-col shopping-bag-col-image'>
+          <CLayer.ShoppingBagItemImage />
+        </td>
+        <td className='shopping-bag-col shopping-bag-col-name'>
+          <CLayer.ShoppingBagItemName />
+        </td>
+        <td className='shopping-bag-col shopping-bag-col-qty'>
+          <CLayer.ShoppingBagItemQtyContainer />
+        </td>
+        <td className='shopping-bag-col shopping-bag-col-total'>
+          <CLayer.ShoppingBagItemUnitAmount />
+        </td>
+        <td className='shopping-bag-col shopping-bag-col-remove'>
+          <CLayer.ShoppingBagItemRemove />
+        </td>
+      </tr>
+    </table>
+  }
+/>
+// ...
+<CLayer.Checkout className={'button is-fullwidth is-success'} />
+// ...
 ```
-[Layout.tsx](./src/components/Layout.tsx)
+
 ```
+// Layout.tsx
+
 // ...
 <ShoppingBag
   lang={language}
@@ -533,8 +538,10 @@ const ShoppingBagPreview = ({ onClick }) => {
 />
 // ...
 ```
-[Product.tsx](./src/components/Product.tsx)
+
 ```
+// Product.tsx
+
 // ...
 <CLayer.AddToBag
   className={`add-to-bag button is-success is-fullwidth`}
@@ -545,7 +552,7 @@ const ShoppingBagPreview = ({ onClick }) => {
 />
 // ...
 ```
-Regardless of the style, the relevant elements are the following:
+Regardless of the style, the relevant elements used by the components are the following:
 
 - **#shopping-bag:** the shopping bag container
 - **#shopping-bag-toggle:** toggles the ".open" class to the shopping bag container
