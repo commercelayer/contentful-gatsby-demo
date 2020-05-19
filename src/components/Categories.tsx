@@ -8,7 +8,7 @@ const Categories = ({ shop, lang, data }: CategoriesProps) => {
     <div className="columns is-multiline">
       {data.map((c, i) => {
         const name = c.name
-        const src = `https:${c.image.file.url}?fm=jpg&q=75`
+        const src = `https:${c.image.file.url}?fm=png&q=75`
         const slug = c.name
           .trim()
           .toLowerCase()
